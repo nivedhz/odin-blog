@@ -1,21 +1,6 @@
 import { createBrowserRouter } from "react-router";
-import App from "../App";
-import SignUp from "../pages/SignUp";
+import { homeRoutes } from "./home.routes";
+import { authRoutes } from "./auth.routes";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/auth",
-    children: [
-      {
-        path: "sign-up",
-        element: <SignUp />,
-      },
-    ],
-  },
-]);
-
+const router = createBrowserRouter([homeRoutes, authRoutes]);
 export default router;
