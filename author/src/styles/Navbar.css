@@ -1,0 +1,42 @@
+.navbar__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ffffff30;
+}
+.navbar__heading {
+  color: white;
+  text-decoration: none;
+  letter-spacing: -2px;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.navbar__link-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.navbar__login-btn,
+.navbar__signup-btn {
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.8rem;
+  transition: all 200ms ease-in-out;
+}
+.navbar__login-btn {
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.3rem;
+  background-color: #ffffff;
+  color: #000;
+}
+.navbar__login-btn:hover {
+  background-color: #ffffff95;
+}
+.navbar__signup-btn {
+  background: none;
+  color: white;
+}
