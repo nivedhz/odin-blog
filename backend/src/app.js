@@ -1,7 +1,14 @@
+// Package imports
 import e from "express";
 import cors from "cors";
+
+import { config } from "dotenv";
+
+// Route imports
 import { router as homeRouter } from "./routes/home.routes.js";
 import { router as authRouter } from "./routes/auth.routes.js";
+
+config();
 
 const app = e();
 
