@@ -1,0 +1,11 @@
+{
+  "watch": ["src", "config"],
+  "ext": "js,mjs,json,graphql,ejs,cjs,schema,sql",
+  "ignore": ["*.test.js", "node_modules", "public"],
+  "delay": 1500,
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": 3000
+  },
+  "verbose": true
+}
