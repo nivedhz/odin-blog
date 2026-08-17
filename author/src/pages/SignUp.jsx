@@ -3,14 +3,23 @@ import "../styles/SignUp.css";
 import { useState } from "react";
 
 const SignUp = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(username, email, password, confirmPassword);
   }
 
   return (
@@ -28,8 +37,8 @@ const SignUp = () => {
             name="username"
             placeholder="name"
             autoComplete="name"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formData.username}
+            onChange={handleChange}
             required
           />
         </label>
@@ -41,8 +50,8 @@ const SignUp = () => {
             name="email"
             placeholder="name@email.com"
             autoComplete="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             required
           />
         </label>
@@ -53,8 +62,8 @@ const SignUp = () => {
             type="password"
             name="password"
             placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             required
           />
         </label>
@@ -65,14 +74,14 @@ const SignUp = () => {
             type="password"
             name="confirmPassword"
             placeholder="********"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={formData.confirmPassword}
+            onChange={handleChange}
             required
           />
         </label>
         <button type="submit">Sign Up</button>
         <p>
-          Already have an account? <Link href="/auth/login">Login</Link>
+          Already have an account? <Link to="/auth/login">Login</Link>
         </p>
       </form>
     </div>
