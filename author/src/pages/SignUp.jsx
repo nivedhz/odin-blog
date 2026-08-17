@@ -9,6 +9,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+  const [error, setError] = useState(null);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -18,8 +19,63 @@ const SignUp = () => {
     }));
   }
 
-  function handleSubmit(e) {
+  function checkFormResponse(formData) {
+    if (!formData.username.trim()) {
+      setError("Please enter a valid username");
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setError("Please enter a valid email");
+      return false;
+    }
+    if (formData.username.length < 3) {
+      setError("Username should be more than 3 characters");
+      return false;
+    }
+    if (!formData.password.trim()) {
+      setError("Please enter a password");
+      return false;
+    }
+    if (formData.password.trim().length < 8) {
+      setError("Password must be atleast 8 characters");
+      return false;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setError("The passwords don't match");
+      return false;
+    }
+    setError(null);
+    return true;
+  }
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (checkFormResponse(formData)) {
+      try {
+        const response = await fetch("http://localhost:3000/auth/sign-up", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+          }),
+        });
+        const data = await response.json();
+        if (data.errors) {
+          return setError(data.errors[0].msg);
+        }
+        return setError(null);
+      } catch (err) {
+        return setError(err.message);
+      }
+    } else {
+      return;
+    }
   }
 
   return (
@@ -79,6 +135,7 @@ const SignUp = () => {
             required
           />
         </label>
+        {error && <p className="sign-up__error-element">{error}</p>}
         <button type="submit">Sign Up</button>
         <p>
           Already have an account? <Link to="/auth/login">Login</Link>
