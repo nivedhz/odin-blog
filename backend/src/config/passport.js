@@ -12,7 +12,7 @@ passport.use(
     try {
       const user = await prisma.user.findUnique({
         where: {
-          id: payload.sub,
+          id: payload.id,
         },
         select: {
           id: true,
