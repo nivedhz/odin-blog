@@ -1,20 +1,31 @@
 import { Link } from "react-router";
 import "../styles/Navbar.css";
+import { useAuth } from "../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   return (
     <div className="navbar__container">
-      <Link href="/" className="navbar__heading">
+      <Link to="/" className="navbar__heading">
         Blogo
       </Link>
-      <div className="navbar__link-container">
-        <Link className="navbar__login-btn" to="/auth/login">
-          Login
-        </Link>
-        <Link className="navbar__signup-btn" to="/auth/sign-up">
-          Sign Up
-        </Link>
-      </div>
+      {user ? (
+        <div className="navbar__name-container">
+          <p>{user.username}</p>
+          <button className="navbar__logout-btn" onClick={logout}>
+            Logout
+          </button>
+        </div>
+      ) : (
+        <div className="navbar__link-container">
+          <Link className="navbar__login-btn" to="/auth/login">
+            Login
+          </Link>
+          <Link className="navbar__signup-btn" to="/auth/sign-up">
+            Sign Up
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
