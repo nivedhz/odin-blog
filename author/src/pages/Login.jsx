@@ -22,7 +22,8 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
+      const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+      const response = await fetch(`${SERVER_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
