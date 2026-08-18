@@ -11,17 +11,25 @@ const Navbar = () => {
       </Link>
       {user ? (
         <div className="navbar__name-container">
-          <p>{user.username}</p>
-          <button className="navbar__logout-btn" onClick={logout}>
+          <p>@{user.username}</p>
+          <button
+            className="navbar__logout-btn"
+            onClick={logout}
+            title="Logout"
+          >
             Logout
           </button>
         </div>
       ) : (
         <div className="navbar__link-container">
-          <Link className="navbar__login-btn" to="/auth/login">
+          <Link className="navbar__login-btn" to="/auth/login" title="Login">
             Login
           </Link>
-          <Link className="navbar__signup-btn" to="/auth/sign-up">
+          <Link
+            className="navbar__signup-btn"
+            to="/auth/sign-up"
+            title="Sign Up"
+          >
             Sign Up
           </Link>
         </div>

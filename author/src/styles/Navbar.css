@@ -36,6 +36,7 @@
   background-color: #ffffff;
   color: #000;
 }
+.navbar__logout-btn:hover,
 .navbar__login-btn:hover {
   background-color: #ffffff95;
 }
