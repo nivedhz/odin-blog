@@ -13,7 +13,7 @@ export const signUpPostController = async (req, res, next) => {
   const { username, password, email } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       username,
       password: hashedPassword,
@@ -21,9 +21,13 @@ export const signUpPostController = async (req, res, next) => {
     },
   });
 
+  const payload = { id: user.id };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.status(201).json({
     success: true,
     message: "User registered successfully",
+    token,
+    username: user.username,
   });
 };
 
@@ -42,6 +46,7 @@ export const loginPostController = async (req, res, next) => {
     select: {
       password: true,
       id: true,
+      username: true,
     },
   });
   const passwordStatus = await bcrypt.compare(password, user.password);
@@ -52,6 +57,7 @@ export const loginPostController = async (req, res, next) => {
       success: true,
       message: "User logged in successfully",
       token,
+      username: user.username,
     });
   } else {
     res.status(401).json({
