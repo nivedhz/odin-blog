@@ -13,11 +13,13 @@
   font-weight: bold;
   cursor: pointer;
 }
+.navbar__name-container,
 .navbar__link-container {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
+.navbar__logout-btn,
 .navbar__login-btn,
 .navbar__signup-btn {
   border: none;
@@ -27,6 +29,7 @@
   font-size: 0.8rem;
   transition: all 200ms ease-in-out;
 }
+.navbar__logout-btn,
 .navbar__login-btn {
   padding: 0.3rem 0.7rem;
   border-radius: 0.3rem;

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "../styles/Login.css";
+import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ const Login = () => {
     password: "",
   });
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -31,10 +34,11 @@ const Login = () => {
         }),
       });
       const data = await response.json();
-      console.log(data);
       if (data.errors) {
         return setError(data.errors[0].msg);
       }
+      login({ token: data.token, username: data.username });
+      navigate("/");
       return setError(null);
     } catch (err) {
       return setError(err.message);

@@ -1,6 +1,7 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "../styles/SignUp.css";
 import { useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,8 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -68,6 +71,8 @@ const SignUp = () => {
         if (data.errors) {
           return setError(data.errors[0].msg);
         }
+        login({ token: data.token, username: data.username });
+        navigate("/");
         return setError(null);
       } catch (err) {
         return setError(err.message);
