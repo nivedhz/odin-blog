@@ -22,6 +22,9 @@
 .navbar__logout-btn,
 .navbar__login-btn,
 .navbar__signup-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   border: none;
   font-weight: 700;
   cursor: pointer;
@@ -43,4 +46,9 @@
 .navbar__signup-btn {
   background: none;
   color: white;
+}
+.navbar__user-container {
+  display: flex;
+  gap: 0.1rem;
+  align-items: center;
 }
