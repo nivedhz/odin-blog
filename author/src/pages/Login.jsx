@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate } from "react-router";
 import "../styles/Login.css";
 import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
+  const { login, user } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const { login } = useAuth();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -38,12 +37,16 @@ const Login = () => {
         return setError(data.errors[0].msg);
       }
       login({ token: data.token, username: data.username });
-      navigate("/");
-      return setError(null);
+      setError(null);
+      return <Navigate to="/" replace />;
     } catch (err) {
       return setError(err.message);
     }
   }
+
+  // If user exists then navigate to home
+  if (user) return <Navigate to="/" replace={true} />;
+
   return (
     <div className="container">
       <form
