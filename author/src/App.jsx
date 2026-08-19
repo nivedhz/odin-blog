@@ -1,4 +1,3 @@
-import "./styles/App.css";
 import { Outlet } from "react-router";
 import Navbar from "./components/Navbar";
 import { useAuth } from "./hooks/useAuth";
@@ -7,9 +6,9 @@ import LoadingSpinner from "./components/LoadingSpinner";
 function App() {
   const { loading } = useAuth();
   return (
-    <>
+    <div className="min-h-screen dark bg-background text-foreground">
       {loading ? (
-        <div className="app__loading-container">
+        <div className="min-h-screen flex justify-center items-center">
           <LoadingSpinner loading={loading} />
         </div>
       ) : (
@@ -20,7 +19,7 @@ function App() {
           </main>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

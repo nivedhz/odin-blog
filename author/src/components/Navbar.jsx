@@ -1,42 +1,44 @@
 import { Link } from "react-router";
-import "../styles/Navbar.css";
 import { useAuth } from "../hooks/useAuth";
-import { LogIn, LogOut, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   return (
-    <div className="navbar__container">
-      <Link to="/" className="navbar__heading">
+    <div className="flex justify-between items-center px-4 py-3 border-b border-gray-500">
+      <Link to="/" className="text-2xl font-bold">
         Blogo
       </Link>
       {user ? (
-        <div className="navbar__name-container">
-          <div className="navbar__user-container">
+        <div className="flex gap-4 items-center">
+          <div className="flex gap-2">
             <User size={20} />
             <p>{user.username}</p>
           </div>
-          <button
-            className="navbar__logout-btn"
+          <Button
+            className="flex gap-2 cursor-pointer"
             onClick={logout}
             title="Logout"
+            variant="destructive"
           >
             Logout
             <LogOut size={20} />
-          </button>
+          </Button>
         </div>
       ) : (
-        <div className="navbar__link-container">
-          <Link className="navbar__login-btn" to="/auth/login" title="Login">
-            <LogIn size={20} />
-            Login
-          </Link>
+        <div className="flex items-center gap-2">
           <Link
-            className="navbar__signup-btn"
-            to="/auth/sign-up"
-            title="Sign Up"
+            className="flex items-center gap-1 cursor-pointer"
+            to="/auth/login"
+            title="Login"
           >
-            Sign Up
+            <Button variant="ghost" className="cursor-pointer">
+              Login
+            </Button>
+          </Link>
+          <Link className="cursor-pointer" to="/auth/sign-up" title="Sign Up">
+            <Button className="cursor-pointer">Sign Up</Button>
           </Link>
         </div>
       )}
