@@ -43,9 +43,12 @@ const Navbar = () => {
               />
               <AlertDialogContent className={"dark"}>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
+                  <AlertDialogTitle>
                     Are you sure you want to logout?
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    By logging out you won't be able to access or manage your
+                    blog posts again without logging in
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
