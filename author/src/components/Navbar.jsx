@@ -49,6 +49,7 @@ const Navbar = () => {
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuItem>Posts</DropdownMenuItem>
+                  <DropdownMenuItem>Drafts</DropdownMenuItem>
                   <DropdownMenuItem>Comments</DropdownMenuItem>
                   <DropdownMenuSeparator></DropdownMenuSeparator>
                   <AlertDialog>
