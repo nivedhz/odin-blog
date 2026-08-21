@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 
 const PostForm = () => {
   const { user, logout } = useAuth();
@@ -23,7 +23,7 @@ const PostForm = () => {
   });
 
   if (!user) {
-    navigate("/auth/login");
+    return <Navigate to="/auth/login" replace />;
   }
   const handleChange = (event) => {
     const { name, value } = event.target;
