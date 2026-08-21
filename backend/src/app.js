@@ -10,6 +10,7 @@ import { passport } from "./config/passport.js";
 // Route imports
 import { router as homeRouter } from "./routes/home.routes.js";
 import { router as authRouter } from "./routes/auth.routes.js";
+import { router as postRouter } from "./routes/post.routes.js";
 
 config();
 
@@ -31,5 +32,6 @@ app.use(passport.initialize());
 // Routes
 app.use("/", homeRouter);
 app.use("/auth", authRouter);
+app.use("/posts", postRouter);
 
 export default app;

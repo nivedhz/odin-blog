@@ -20,13 +20,14 @@ model User {
 }
 
 model Post {
-  id        String    @id @default(uuid())
-  title     String
-  content   String
-  createdAt String
-  author    User      @relation(fields: [authorId], references: [id])
-  authorId  String
-  comments  Comment[]
+  id            String    @id @default(uuid())
+  title         String
+  content       String
+  createdAt     DateTime  @default(now())
+  publishStatus Boolean   @default(false)
+  author        User      @relation(fields: [authorId], references: [id])
+  authorId      String
+  comments      Comment[]
 
   @@map("posts")
 }
