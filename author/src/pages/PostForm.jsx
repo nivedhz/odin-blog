@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const PostForm = () => {
   const { user, logout } = useAuth();
