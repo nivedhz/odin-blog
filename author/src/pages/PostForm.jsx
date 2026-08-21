@@ -58,8 +58,7 @@ const PostForm = () => {
       navigate("/auth/login");
     }
 
-    const result = await response.json();
-    console.log(result);
+    navigate("/");
   };
 
   return (
