@@ -21,6 +21,7 @@ const PostForm = () => {
     title: "",
     content: "",
   });
+  const [error, setError] = useState("");
 
   if (!user) {
     return <Navigate to="/auth/login" replace />;
@@ -35,6 +36,10 @@ const PostForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.title || !formData.content) {
+      setError("Please enter the required information");
+      return;
+    }
 
     const action = e.target.name;
 
@@ -58,6 +63,7 @@ const PostForm = () => {
       navigate("/auth/login");
     }
 
+    setError("");
     navigate("/");
   };
 
@@ -74,7 +80,7 @@ const PostForm = () => {
               variant="link"
               className={"cursor-pointer"}
               onClick={() => {
-                navigate("/");
+                navigate("/dashboard");
               }}
             >
               Home
@@ -107,6 +113,7 @@ const PostForm = () => {
                   required
                 ></Textarea>
               </div>
+              {error && <p className="text-destructive">{error}</p>}
               <div className="flex gap-2 justify-end mt-2">
                 <Button
                   type="button"
@@ -117,7 +124,12 @@ const PostForm = () => {
                 >
                   Save as Draft
                 </Button>
-                <Button type="button" name="publish" onClick={handleSubmit}>
+                <Button
+                  type="button"
+                  name="publish"
+                  onClick={handleSubmit}
+                  className={"cursor-pointer"}
+                >
                   Publish
                 </Button>
               </div>
