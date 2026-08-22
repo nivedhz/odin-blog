@@ -1,3 +1,4 @@
+import Dashboard from "@/pages/Dashboard";
 import App from "../App";
 import Home from "../pages/Home";
 
@@ -8,6 +9,10 @@ export const homeRoutes = {
     {
       index: true,
       element: <Home />,
+    },
+    {
+      path: "dashboard",
+      element: <Dashboard />,
     },
   ],
 };
