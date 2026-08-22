@@ -27,7 +27,7 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   return (
     <div className="">
-      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-500">
+      <div className="flex justify-between items-center px-20 py-3">
         <Link to="/" className="text-2xl font-bold">
           Blogo
         </Link>
