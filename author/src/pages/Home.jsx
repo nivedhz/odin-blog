@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 
 const Home = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -16,12 +16,16 @@ const Home = () => {
           Authorization: `Bearer ${user?.token}`,
         },
       });
+      if (response.status === 401) {
+        logout();
+        return <Navigate to="/auth/login" />;
+      }
 
       const result = await response.json();
       setData(result);
     };
     fetchPosts();
-  }, [user?.token]);
+  }, [user?.token, logout]);
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
