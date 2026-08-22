@@ -6,20 +6,20 @@ import LoadingSpinner from "./components/LoadingSpinner";
 function App() {
   const { loading } = useAuth();
   return (
-    <div className="min-h-screen dark bg-background text-foreground">
+    <>
       {loading ? (
-        <div className="min-h-screen flex justify-center items-center">
+        <div className="min-h-screen flex justify-center items-center dark bg-background">
           <LoadingSpinner loading={loading} />
         </div>
       ) : (
-        <div className="app__main-container">
+        <div className="min-h-screen dark bg-background text-foreground">
           <Navbar />
           <main>
             <Outlet />
           </main>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
