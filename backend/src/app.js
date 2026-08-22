@@ -2,8 +2,6 @@
 import e from "express";
 import cors from "cors";
 
-import { config } from "dotenv";
-
 // Config imports
 import { passport } from "./config/passport.js";
 
@@ -11,8 +9,6 @@ import { passport } from "./config/passport.js";
 import { router as homeRouter } from "./routes/home.routes.js";
 import { router as authRouter } from "./routes/auth.routes.js";
 import { router as postRouter } from "./routes/post.routes.js";
-
-config();
 
 const app = e();
 
