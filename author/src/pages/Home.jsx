@@ -57,7 +57,7 @@ const Home = () => {
         <Button
           size="lg"
           className={cn(
-            "transition-all duration-500 ease-out delay-150 cursor-pointer",
+            "transition-all duration-500 ease-out delay-200 cursor-pointer",
             {
               "opacity-100 translate-y-0": loaded,
               "opacity-0 translate-y-10": !loaded,
