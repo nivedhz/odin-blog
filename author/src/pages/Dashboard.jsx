@@ -77,7 +77,7 @@ const Dashboard = () => {
         </div>
         <div
           className={cn(
-            "p-5 grid grid-cols-2 gap-4 transition-all duration-500 ease-out delay-100",
+            "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-100",
             {
               "opacity-100 translate-y-0": loaded,
               "opacity-0 translate-y-10": !loaded,
@@ -86,11 +86,8 @@ const Dashboard = () => {
         >
           {data.map((item) => {
             return (
-              <Card
-                className="flex flex-col min-w-lg overflow-hidden"
-                key={item.id}
-              >
-                <CardHeader className="px-4 py-2 flex overflow-hidden max-w-xl text-wrap">
+              <Card className="flex flex-col  overflow-hidden" key={item.id}>
+                <CardHeader className="px-4 py-1 flex overflow-hidden max-w-xl text-wrap">
                   <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
                     {item.title}
                   </CardTitle>
