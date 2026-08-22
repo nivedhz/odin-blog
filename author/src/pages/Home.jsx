@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
-import { ArrowBigRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 
@@ -67,7 +67,8 @@ const Home = () => {
             navigate("/auth/sign-up");
           }}
         >
-          Start writing for free <ArrowBigRight />
+          Start writing for free{" "}
+          <ArrowRight className="animate-[arrow-bounce_3s_ease-in-out_infinite]" />
         </Button>
       </div>
     </div>
