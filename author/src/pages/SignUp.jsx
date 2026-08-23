@@ -96,95 +96,100 @@ const SignUp = () => {
   if (user) return <Navigate to="/" replace />;
 
   return (
-    <div className="bg-background dark flex justify-center items-center min-h-screen text-white">
-      <Card className={"w-full max-w-sm"}>
-        <CardHeader>
-          <CardTitle>Sign up for an account</CardTitle>
-          <CardDescription>Enter you details below to sign up</CardDescription>
-          <CardAction>
-            <Link to="/auth/login">
-              <Button variant="link" className={"cursor-pointer"}>
-                Login
-              </Button>
-            </Link>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={handleSubmit}
-            spellCheck="false"
-          >
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                name="username"
-                placeholder="name"
-                autoComplete="name"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="name@email.com"
-                autoComplete="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="********"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="confirm-password">Confirm Password</Label>
-              <Input
-                id="confirm-password"
-                type="password"
-                name="confirmPassword"
-                placeholder="********"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            {error && <p className="text-red-500 font-light">{error}</p>}
-            <div className="flex gap-2 justify-end">
-              <Link to="/">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="lg"
-                  className={"cursor-pointer"}
-                >
-                  Go back
+    <>
+      <title>Blogo | Sign Up</title>
+      <div className="bg-background dark flex justify-center items-center min-h-screen text-white">
+        <Card className={"w-full max-w-sm"}>
+          <CardHeader>
+            <CardTitle>Sign up for an account</CardTitle>
+            <CardDescription>
+              Enter you details below to sign up
+            </CardDescription>
+            <CardAction>
+              <Link to="/auth/login">
+                <Button variant="link" className={"cursor-pointer"}>
+                  Login
                 </Button>
               </Link>
-              <Button type="submit" size="lg" className={"cursor-pointer"}>
-                Sign Up
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+            </CardAction>
+          </CardHeader>
+          <CardContent>
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={handleSubmit}
+              spellCheck="false"
+            >
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  name="username"
+                  placeholder="name"
+                  autoComplete="name"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="name@email.com"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="********"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Input
+                  id="confirm-password"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="********"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              {error && <p className="text-red-500 font-light">{error}</p>}
+              <div className="flex gap-2 justify-end">
+                <Link to="/">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="lg"
+                    className={"cursor-pointer"}
+                  >
+                    Go back
+                  </Button>
+                </Link>
+                <Button type="submit" size="lg" className={"cursor-pointer"}>
+                  Sign Up
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 };
 

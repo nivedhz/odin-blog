@@ -52,56 +52,59 @@ const Dashboard = () => {
     return <Navigate to="/" replace />;
   }
   return (
-    <div className="dark px-25 py-10">
-      <div className="">
-        <div
-          className={cn(
-            "flex justify-between items-center transition-all duration-500 ease-out",
-            {
-              "opacity-100 translate-y-0": loaded,
-              "opacity-0 translate-y-10": !loaded,
-            },
-          )}
-        >
-          <h1 className="text-2xl font-semibold">All posts</h1>
-          <Button
-            onClick={() => {
-              navigate("/post/new");
-            }}
-            className={"cursor-pointer"}
-            title="New Post"
+    <>
+      <title>Blogo | Dashboard</title>
+      <div className="dark px-25 py-10">
+        <div className="">
+          <div
+            className={cn(
+              "flex justify-between items-center transition-all duration-500 ease-out",
+              {
+                "opacity-100 translate-y-0": loaded,
+                "opacity-0 translate-y-10": !loaded,
+              },
+            )}
           >
-            <Plus />
-            New post
-          </Button>
-        </div>
-        <div
-          className={cn(
-            "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-100",
-            {
-              "opacity-100 translate-y-0": loaded,
-              "opacity-0 translate-y-10": !loaded,
-            },
-          )}
-        >
-          {data.map((item) => {
-            return (
-              <Card className="flex flex-col  overflow-hidden" key={item.id}>
-                <CardHeader className="px-4 py-1 flex overflow-hidden max-w-xl text-wrap">
-                  <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
-                    {item.title}
-                  </CardTitle>
-                </CardHeader>
-                <hr />
-                <CardDescription className="px-4 max-h-32 overflow-hidden wrap-anywhere max-w-xl text-wrap">
-                  {item.content}
-                </CardDescription>
-              </Card>
-            );
-          })}
+            <h1 className="text-2xl font-semibold">All posts</h1>
+            <Button
+              onClick={() => {
+                navigate("/post/new");
+              }}
+              className={"cursor-pointer"}
+              title="New Post"
+            >
+              <Plus />
+              New post
+            </Button>
+          </div>
+          <div
+            className={cn(
+              "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-100",
+              {
+                "opacity-100 translate-y-0": loaded,
+                "opacity-0 translate-y-10": !loaded,
+              },
+            )}
+          >
+            {data.map((item) => {
+              return (
+                <Card className="flex flex-col  overflow-hidden" key={item.id}>
+                  <CardHeader className="px-4 py-1 flex overflow-hidden max-w-xl text-wrap">
+                    <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
+                      {item.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <hr />
+                  <CardDescription className="px-4 max-h-32 overflow-hidden wrap-anywhere max-w-xl text-wrap">
+                    {item.content}
+                  </CardDescription>
+                </Card>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
