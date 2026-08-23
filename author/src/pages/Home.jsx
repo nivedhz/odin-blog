@@ -1,4 +1,3 @@
-import Particles from "@/components/Particles";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
