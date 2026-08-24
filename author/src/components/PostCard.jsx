@@ -33,7 +33,9 @@ const PostCard = ({ item, handleDelete }) => {
       <CardHeader className="px-4 py-1  overflow-hidden max-w-xl text-wrap flex flex-col">
         <div className="flex justify-between items-center w-full">
           <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
-            {item.title}
+            {item.title.length > 25
+              ? item.title.slice(0, 25) + "..."
+              : item.title}
           </CardTitle>
           <CardAction>
             <DropdownMenu>
@@ -115,7 +117,9 @@ const PostCard = ({ item, handleDelete }) => {
       </CardHeader>
       <hr />
       <CardDescription className="px-4 max-h-32 overflow-hidden wrap-anywhere max-w-xl text-wrap">
-        {item.content}
+        {item.content.length > 50
+          ? item.content.slice(0, 50) + "..."
+          : item.content}
       </CardDescription>
     </Card>
   );
