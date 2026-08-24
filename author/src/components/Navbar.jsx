@@ -80,7 +80,7 @@ const Navbar = () => {
                         <Button
                           className="flex gap-2 cursor-pointer min-w-full items-center justify-start p-2"
                           title="Logout"
-                          variant="ghost"
+                          variant="destructive"
                         >
                           Logout
                           <LogOut size={20} />
