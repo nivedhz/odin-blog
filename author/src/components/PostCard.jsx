@@ -126,11 +126,7 @@ const PostCard = ({ item, handleDelete, handleUnpublish, handlePublish }) => {
             </DropdownMenu>
           </CardAction>
         </div>
-        <CardDescription
-          className={
-            "flex gap-2 lg:flex-row md:flex-col sm:flex-col items-center"
-          }
-        >
+        <CardDescription className={"flex gap-2 lg:flex-row items-center"}>
           {item.publishStatus ? <p>Published</p> : <p>Draft</p>}{" "}
           <span className="font-bold text-md">|</span>
           <p>
