@@ -36,7 +36,12 @@ const PostForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.title || !formData.content) {
+    if (
+      !formData.title ||
+      !formData.content ||
+      formData.title.trim() === "" ||
+      formData.content.trim() === ""
+    ) {
       setError("Please enter the required information");
       return;
     }
