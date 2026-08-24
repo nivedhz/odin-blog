@@ -25,9 +25,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-import { Edit, EllipsisVertical, Eye, Trash } from "lucide-react";
+import {
+  Edit,
+  EllipsisVertical,
+  Eye,
+  Globe,
+  GlobeOff,
+  Trash,
+} from "lucide-react";
 
-const PostCard = ({ item, handleDelete }) => {
+const PostCard = ({ item, handleDelete, handleUnpublish, handlePublish }) => {
   return (
     <Card className="flex flex-col  overflow-hidden">
       <CardHeader className="px-4 py-1  overflow-hidden max-w-xl text-wrap flex flex-col">
@@ -52,6 +59,27 @@ const PostCard = ({ item, handleDelete }) => {
                     <Eye />
                     View post
                   </DropdownMenuItem>
+                  {item.publishStatus ? (
+                    <DropdownMenuItem
+                      className={"cursor-pointer"}
+                      onClick={() => {
+                        handleUnpublish(item.id);
+                      }}
+                    >
+                      <GlobeOff />
+                      Unpublish
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem
+                      className={"cursor-pointer"}
+                      onClick={() => {
+                        handlePublish(item.id);
+                      }}
+                    >
+                      <Globe />
+                      Publish
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem className={"cursor-pointer"}>
                     <Edit />
                     Edit

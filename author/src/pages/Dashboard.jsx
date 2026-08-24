@@ -83,6 +83,58 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
+  const handlePublish = async (postId) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/posts/publish/${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.status === 401) {
+        logout();
+        return;
+      }
+      const result = await response.json();
+      setData(result.posts);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleUnpublish = async (postId) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/posts/unpublish/${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.status === 401) {
+        logout();
+        return;
+      }
+      const result = await response.json();
+      setData(result.posts);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!user) {
     return <Navigate to="/" replace />;
@@ -181,6 +233,8 @@ const Dashboard = () => {
                   <PostCard
                     item={item}
                     handleDelete={handleDelete}
+                    handlePublish={handlePublish}
+                    handleUnpublish={handleUnpublish}
                     key={item.id}
                   />
                 );
@@ -220,6 +274,8 @@ const Dashboard = () => {
                       <PostCard
                         item={item}
                         handleDelete={handleDelete}
+                        handlePublish={handlePublish}
+                        handleUnpublish={handleUnpublish}
                         key={item.id}
                       />
                     );
@@ -260,6 +316,8 @@ const Dashboard = () => {
                       <PostCard
                         item={item}
                         handleDelete={handleDelete}
+                        handlePublish={handlePublish}
+                        handleUnpublish={handleUnpublish}
                         key={item.id}
                       />
                     );
