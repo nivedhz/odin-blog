@@ -205,7 +205,11 @@ const Dashboard = () => {
                         </DropdownMenu>
                       </CardAction>
                     </div>
-                    <CardDescription className={"flex gap-2"}>
+                    <CardDescription
+                      className={
+                        "flex gap-2 lg:flex-row md:flex-col sm:flex-col"
+                      }
+                    >
                       {item.publishStatus ? <p>Published</p> : <p>Draft</p>}
                       <p>
                         {new Date(item.createdAt).toDateString() +

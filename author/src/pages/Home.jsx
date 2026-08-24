@@ -1,3 +1,4 @@
+import Particles from "@/components/Particles";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
@@ -23,9 +24,21 @@ const Home = () => {
     return <Navigate to="/dashboard" />;
   }
   return (
-    <>
+    <div className="relative">
       <title>Blogo</title>
-      <div className="min-w-full h-180 px-8 py-16 flex items-center gap-10 justify-center transition-all duration-500 ease-out bg-background">
+      <Particles
+        className={"min-h-190 absolute inset-0"}
+        particleColors={["#ffffff"]}
+        particleCount={200}
+        particleSpread={10}
+        speed={0.1}
+        particleBaseSize={150}
+        moveParticlesOnHover
+        alphaParticles={false}
+        disableRotation={false}
+        pixelRatio={1}
+      />
+      <div className="min-w-full h-180 px-8 py-16 flex items-center gap-10 justify-center transition-all duration-500 ease-out absolute inset-0">
         <div className="flex flex-col gap-4 items-center justify-center">
           <h1
             className={cn(
@@ -76,7 +89,7 @@ const Home = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
