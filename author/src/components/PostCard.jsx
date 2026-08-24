@@ -127,9 +127,12 @@ const PostCard = ({ item, handleDelete, handleUnpublish, handlePublish }) => {
           </CardAction>
         </div>
         <CardDescription
-          className={"flex gap-2 lg:flex-row md:flex-col sm:flex-col"}
+          className={
+            "flex gap-2 lg:flex-row md:flex-col sm:flex-col items-center"
+          }
         >
-          {item.publishStatus ? <p>Published</p> : <p>Draft</p>}
+          {item.publishStatus ? <p>Published</p> : <p>Draft</p>}{" "}
+          <span className="font-bold text-md">|</span>
           <p>
             {new Date(item.createdAt).toDateString() +
               " at " +
