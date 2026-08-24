@@ -1,15 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { Plus } from "lucide-react";
+import { Edit, EllipsisVertical, Eye, Plus, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 import {
   Card,
+  CardAction,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -48,6 +67,30 @@ const Dashboard = () => {
     };
     fetchPosts();
   }, [logout, user?.token]);
+
+  const handleDelete = async (postId) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/posts/delete/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      if (response.status === 401) {
+        logout();
+        return <Navigate to="/auth/login" replace />;
+      }
+      const result = await response.json();
+      setData(result.posts);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (!user) {
     return <Navigate to="/" replace />;
   }
@@ -89,10 +132,95 @@ const Dashboard = () => {
             {data.map((item) => {
               return (
                 <Card className="flex flex-col  overflow-hidden" key={item.id}>
-                  <CardHeader className="px-4 py-1 flex overflow-hidden max-w-xl text-wrap">
-                    <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
-                      {item.title}
-                    </CardTitle>
+                  <CardHeader className="px-4 py-1  overflow-hidden max-w-xl text-wrap flex flex-col">
+                    <div className="flex justify-between items-center w-full">
+                      <CardTitle className="font-bold text-xl wrap-anywhere max-h-8">
+                        {item.title}
+                      </CardTitle>
+                      <CardAction>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger
+                            render={
+                              <Button
+                                variant="ghost"
+                                className={"cursor-pointer"}
+                              >
+                                <EllipsisVertical />
+                              </Button>
+                            }
+                          />
+                          <DropdownMenuContent>
+                            <DropdownMenuGroup>
+                              <DropdownMenuItem className={"cursor-pointer"}>
+                                <Eye />
+                                View post
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className={"cursor-pointer"}>
+                                <Edit />
+                                Edit
+                              </DropdownMenuItem>
+                              <AlertDialog>
+                                <AlertDialogTrigger
+                                  render={
+                                    <Button
+                                      variant="destructive"
+                                      className={
+                                        "cursor-pointer w-full justify-start"
+                                      }
+                                    >
+                                      <Trash />
+                                      Delete
+                                    </Button>
+                                  }
+                                ></AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                      Are you sure you want to delete?
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      You will lose this post forever
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel
+                                      className={"cursor-pointer"}
+                                    >
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      variant="destructive"
+                                      className={"cursor-pointer"}
+                                      onClick={() => {
+                                        handleDelete(item.id);
+                                      }}
+                                    >
+                                      Delete
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </DropdownMenuGroup>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </CardAction>
+                    </div>
+                    <CardDescription className={"flex gap-2"}>
+                      {item.publishStatus ? <p>Published</p> : <p>Draft</p>}
+                      <p>
+                        {new Date(item.createdAt).toDateString() +
+                          " at " +
+                          new Date(item.createdAt)
+                            .toLocaleTimeString()
+                            .split(":")
+                            .slice(0, 2)
+                            .join(":") +
+                          " " +
+                          new Date(item.createdAt)
+                            .toLocaleTimeString()
+                            .split(" ")[1]}
+                      </p>
+                    </CardDescription>
                   </CardHeader>
                   <hr />
                   <CardDescription className="px-4 max-h-32 overflow-hidden wrap-anywhere max-w-xl text-wrap">
