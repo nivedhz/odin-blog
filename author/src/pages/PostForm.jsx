@@ -115,6 +115,7 @@ const PostForm = () => {
                   placeholder="Eg: My new blog content"
                   valud={formData.content}
                   onChange={handleChange}
+                  className={"resize-none max-h-10 scrollbar-none"}
                   required
                 ></Textarea>
               </div>
