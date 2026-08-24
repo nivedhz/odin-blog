@@ -33,11 +33,12 @@ model Post {
 }
 
 model Comment {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   content   String
-  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
-  post      Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 
   @@map("comments")
