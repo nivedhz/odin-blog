@@ -22,9 +22,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useScroll } from "@/hooks/useScroll";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { scrollTo, postRef, draftRef, publishRef } = useScroll();
+
   return (
     <div className="">
       <div className="flex justify-between items-center px-20 py-3">
@@ -48,8 +51,27 @@ const Navbar = () => {
               <DropdownMenuContent className={"dark"}>
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuItem>Posts</DropdownMenuItem>
-                  <DropdownMenuItem>Drafts</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      scrollTo(postRef);
+                    }}
+                  >
+                    Posts
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      scrollTo(publishRef);
+                    }}
+                  >
+                    Publishes
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      scrollTo(draftRef);
+                    }}
+                  >
+                    Drafts
+                  </DropdownMenuItem>
                   <DropdownMenuItem>Comments</DropdownMenuItem>
                   <DropdownMenuSeparator></DropdownMenuSeparator>
                   <AlertDialog>
