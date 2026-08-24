@@ -44,6 +44,7 @@ const Dashboard = () => {
       }
     };
     fetchPosts();
+    return () => setData([]);
   }, [logout, user?.token]);
 
   const handleDelete = async (postId) => {
