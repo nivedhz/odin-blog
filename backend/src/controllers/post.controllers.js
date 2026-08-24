@@ -82,3 +82,94 @@ export const postDeleteController = async (req, res, next) => {
     posts: userPosts.posts,
   });
 };
+
+export const postPublishPatchController = async (req, res, next) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.postId,
+    },
+  });
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.user.id,
+    },
+    select: { id: true },
+  });
+  if (post.authorId !== user.id) {
+    return res.status(401).json({
+      success: false,
+      message: "Cannot make publish other user's post",
+    });
+  }
+  await prisma.post.update({
+    where: {
+      id: post.id,
+    },
+    data: {
+      publishStatus: true,
+    },
+  });
+  const userPosts = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    select: {
+      posts: {
+        include: {
+          author: {
+            select: { username: true },
+          },
+        },
+      },
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully published the post",
+    posts: userPosts.posts,
+  });
+};
+export const postUnpublishPatchController = async (req, res, next) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.postId,
+    },
+  });
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.user.id,
+    },
+    select: { id: true },
+  });
+  if (post.authorId !== user.id) {
+    return res.status(401).json({
+      success: false,
+      message: "Cannot make publish other user's post",
+    });
+  }
+  await prisma.post.update({
+    where: {
+      id: post.id,
+    },
+    data: {
+      publishStatus: false,
+    },
+  });
+  const userPosts = await prisma.user.findUnique({
+    where: { id: req.user.id },
+    select: {
+      posts: {
+        include: {
+          author: {
+            select: { username: true },
+          },
+        },
+      },
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully published the post",
+    posts: userPosts.posts,
+  });
+};
