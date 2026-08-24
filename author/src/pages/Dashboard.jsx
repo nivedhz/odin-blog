@@ -18,18 +18,19 @@ import {
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { user, logout } = useAuth();
   const { postRef, draftRef, publishRef } = useScroll();
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
-    if (data === null) return;
+    if (data === null || loading) return;
     const animationFrame = requestAnimationFrame(() => {
       setLoaded(true);
     });
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [data]);
+  }, [data, loading]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -49,6 +50,7 @@ const Dashboard = () => {
         }
         const result = await response.json();
         setData(result);
+        setLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -58,6 +60,7 @@ const Dashboard = () => {
 
   const handleDelete = async (postId) => {
     try {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_SERVER_URL}/posts/delete/${postId}`,
         {
@@ -76,6 +79,8 @@ const Dashboard = () => {
       setData(result.posts);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,9 +90,9 @@ const Dashboard = () => {
   return (
     <>
       <title>Blogo | Dashboard</title>
-      {data === null ? (
+      {data === null || loading ? (
         <div className="min-h-180 flex justify-center items-center dark bg-background">
-          <LoadingSpinner loading={data === null} />
+          <LoadingSpinner loading={data === null || loading} />
         </div>
       ) : data.length === 0 ? (
         <Empty className={"py-50"}>
