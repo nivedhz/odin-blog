@@ -1,3 +1,5 @@
+import App from "@/App";
+import Post from "@/pages/Post";
 import PostForm from "@/pages/PostForm";
 
 export const postRoutes = {
@@ -6,6 +8,15 @@ export const postRoutes = {
     {
       path: "new",
       element: <PostForm />,
+    },
+    {
+      element: <App />,
+      children: [
+        {
+          path: ":postId",
+          element: <Post />,
+        },
+      ],
     },
   ],
 };
