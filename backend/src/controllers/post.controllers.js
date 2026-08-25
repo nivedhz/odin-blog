@@ -37,21 +37,8 @@ export const postDeleteController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
-  const user = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    select: {
-      id: true,
-      posts: {
-        include: {
-          author: {
-            select: { username: true },
-          },
-        },
-      },
-    },
-  });
 
-  if (user.id !== post.authorId) {
+  if (req.user.id !== post.authorId) {
     return res.status(401).json({
       success: false,
       message: "Cannot delete other user's posts",
@@ -89,13 +76,7 @@ export const postPublishPatchController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
-  const user = await prisma.user.findUnique({
-    where: {
-      id: req.user.id,
-    },
-    select: { id: true },
-  });
-  if (post.authorId !== user.id) {
+  if (post.authorId !== req.user.id) {
     return res.status(401).json({
       success: false,
       message: "Cannot make publish other user's post",
@@ -134,13 +115,7 @@ export const postUnpublishPatchController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
-  const user = await prisma.user.findUnique({
-    where: {
-      id: req.user.id,
-    },
-    select: { id: true },
-  });
-  if (post.authorId !== user.id) {
+  if (post.authorId !== req.user.id) {
     return res.status(401).json({
       success: false,
       message: "Cannot make publish other user's post",
@@ -187,4 +162,23 @@ export const postGetContrller = async (req, res, next) => {
   }
 
   res.status(200).json(post);
+};
+export const postEditPostController = async (req, res, next) => {
+  await prisma.post.update({
+    where: {
+      id: req.params.postId,
+      authorId: req.user.id,
+    },
+    data: {
+      title: req.body.title,
+      content: req.body.content,
+      publishStatus: req.body.publish,
+      updatedAt: new Date(),
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Successfully edited the post",
+  });
 };

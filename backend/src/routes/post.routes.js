@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   newPostPostController,
   postDeleteController,
+  postEditPostController,
   postGetContrller,
   postPublishPatchController,
   postsGetController,
@@ -20,5 +21,7 @@ router.delete("/delete/:postId", ensureAuth, postDeleteController);
 
 router.patch("/publish/:postId", ensureAuth, postPublishPatchController);
 router.patch("/unpublish/:postId", ensureAuth, postUnpublishPatchController);
+
+router.post("/edit/:postId", ensureAuth, postEditPostController);
 
 export { router };
