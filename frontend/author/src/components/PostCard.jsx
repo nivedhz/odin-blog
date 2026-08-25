@@ -37,6 +37,9 @@ import { useNavigate } from "react-router";
 
 const PostCard = ({ item, handleDelete, handleUnpublish, handlePublish }) => {
   const navigate = useNavigate();
+  const handleEdit = (postId) => {
+    navigate(`/post/edit/${postId}`);
+  };
   return (
     <Card className="flex flex-col  overflow-hidden">
       <CardHeader className="px-4 py-1  overflow-hidden max-w-xl text-wrap flex flex-col">
@@ -87,7 +90,12 @@ const PostCard = ({ item, handleDelete, handleUnpublish, handlePublish }) => {
                       Publish
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem className={"cursor-pointer"}>
+                  <DropdownMenuItem
+                    className={"cursor-pointer"}
+                    onClick={() => {
+                      handleEdit(item.id);
+                    }}
+                  >
                     <Edit />
                     Edit
                   </DropdownMenuItem>
