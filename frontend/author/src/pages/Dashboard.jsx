@@ -20,6 +20,7 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reload, setReload] = useState(0);
   const { user, logout } = useAuth();
   const { postRef, draftRef, publishRef } = useScroll();
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const Dashboard = () => {
   }, [data, loading, error]);
   useEffect(() => {
     const fetchPosts = async () => {
+      setLoading(true);
       try {
         const response = await fetch(
           `${import.meta.env.VITE_SERVER_URL}/posts`,
@@ -46,7 +48,6 @@ const Dashboard = () => {
             },
           },
         );
-        console.log(response.status);
         if (response.status === 401) {
           logout();
           return;
@@ -62,7 +63,7 @@ const Dashboard = () => {
       }
     };
     fetchPosts();
-  }, [logout, user?.token]);
+  }, [logout, user?.token, reload]);
 
   const handleDelete = async (postId) => {
     try {
@@ -167,8 +168,9 @@ const Dashboard = () => {
             <p className={"text-muted-foreground"}>{error}</p>
           </div>
           <Button
+            className={"cursor-pointer"}
             onClick={() => {
-              window.location.reload();
+              setReload((prev) => prev + 1);
             }}
           >
             <RefreshCcw />
