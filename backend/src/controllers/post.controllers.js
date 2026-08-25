@@ -39,7 +39,7 @@ export const postDeleteController = async (req, res, next) => {
   });
 
   if (req.user.id !== post.authorId) {
-    return res.status(401).json({
+    return res.status(403).json({
       success: false,
       message: "Cannot delete other user's posts",
     });
@@ -77,7 +77,7 @@ export const postPublishPatchController = async (req, res, next) => {
     },
   });
   if (post.authorId !== req.user.id) {
-    return res.status(401).json({
+    return res.status(403).json({
       success: false,
       message: "Cannot make publish other user's post",
     });
@@ -116,7 +116,7 @@ export const postUnpublishPatchController = async (req, res, next) => {
     },
   });
   if (post.authorId !== req.user.id) {
-    return res.status(401).json({
+    return res.status(403).json({
       success: false,
       message: "Cannot make publish other user's post",
     });
@@ -155,7 +155,7 @@ export const postGetContrller = async (req, res, next) => {
     },
   });
   if (post.authorId !== req.user.id) {
-    return res.status(401).json({
+    return res.status(403).json({
       success: false,
       message: "Not authorized",
     });
