@@ -173,3 +173,18 @@ export const postUnpublishPatchController = async (req, res, next) => {
     posts: userPosts.posts,
   });
 };
+export const postGetContrller = async (req, res, next) => {
+  const post = await prisma.post.findUnique({
+    where: {
+      id: req.params.postId,
+    },
+  });
+  if (post.authorId !== req.user.id) {
+    return res.status(401).json({
+      success: false,
+      message: "Not authorized",
+    });
+  }
+
+  res.status(200).json(post);
+};

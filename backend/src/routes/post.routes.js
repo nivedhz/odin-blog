@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   newPostPostController,
   postDeleteController,
+  postGetContrller,
   postPublishPatchController,
   postsGetController,
   postUnpublishPatchController,
@@ -11,6 +12,7 @@ import { ensureAuth } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 router.get("/", ensureAuth, postsGetController);
+router.get("/:postId", ensureAuth, postGetContrller);
 
 router.post("/new", ensureAuth, newPostPostController);
 
