@@ -5,6 +5,7 @@ import { useParams, Navigate, useNavigate } from "react-router";
 import { cn } from "../lib/utils.js";
 import { useAuth } from "@/hooks/useAuth";
 import { ButtonGroup } from "@/components/ui/button-group.jsx";
+import LoadingSpinner from "@/components/LoadingSpinner.jsx";
 
 const Post = () => {
   const { user, logout } = useAuth();
@@ -16,7 +17,7 @@ const Post = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (data === null || loading || error) return;
+    if (data === null || loading || error) return;
     const animationFrame = requestAnimationFrame(() => {
       setLoaded(true);
     });
@@ -55,6 +56,13 @@ const Post = () => {
 
   if (!user) {
     return <Navigate to="/" replace />;
+  }
+  if (loading) {
+    return (
+      <div className="min-h-180 flex justify-center items-center dark bg-background">
+        <LoadingSpinner loading={loading} />
+      </div>
+    );
   }
   return (
     <div className="min-h-180 px-25 py-10">
