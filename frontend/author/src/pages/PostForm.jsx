@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
+import { ChevronLeft } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router";
 
@@ -88,7 +89,8 @@ const PostForm = () => {
                 navigate("/dashboard");
               }}
             >
-              Home
+              <ChevronLeft />
+              Go back
             </Button>
           </CardAction>
         </CardHeader>
