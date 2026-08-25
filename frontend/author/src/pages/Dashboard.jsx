@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { Newspaper, Plus } from "lucide-react";
+import { Newspaper, Plus, RefreshCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
@@ -19,18 +19,20 @@ import {
 const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user, logout } = useAuth();
   const { postRef, draftRef, publishRef } = useScroll();
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    if (data === null || loading) return;
+    if (data === null || loading || error) return;
     const animationFrame = requestAnimationFrame(() => {
       setLoaded(true);
     });
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [data, loading]);
+  }, [data, loading, error]);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -44,15 +46,19 @@ const Dashboard = () => {
             },
           },
         );
+        console.log(response.status);
         if (response.status === 401) {
           logout();
           return;
         }
         const result = await response.json();
         setData(result);
-        setLoading(false);
+        setError(null);
       } catch (err) {
         console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
     fetchPosts();
@@ -77,8 +83,10 @@ const Dashboard = () => {
       }
       const result = await response.json();
       setData(result.posts);
+      setError(null);
     } catch (err) {
       console.error(err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -103,8 +111,10 @@ const Dashboard = () => {
       }
       const result = await response.json();
       setData(result.posts);
+      setError(null);
     } catch (err) {
       console.error(err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -129,8 +139,10 @@ const Dashboard = () => {
       }
       const result = await response.json();
       setData(result.posts);
+      setError(null);
     } catch (err) {
       console.error(err);
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -142,9 +154,26 @@ const Dashboard = () => {
   return (
     <>
       <title>Blogo | Dashboard</title>
-      {data === null || loading ? (
+      {loading ? (
         <div className="min-h-180 flex justify-center items-center dark bg-background">
           <LoadingSpinner loading={data === null || loading} />
+        </div>
+      ) : error ? (
+        <div className="flex flex-col justify-center items-center min-h-180 gap-4">
+          <div className="flex flex-col items-center">
+            <h1 className={"text-4xl transition-all duration-500 ease-out"}>
+              Error occured
+            </h1>
+            <p className={"text-muted-foreground"}>{error}</p>
+          </div>
+          <Button
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            <RefreshCcw />
+            Try Again?
+          </Button>
         </div>
       ) : data.length === 0 ? (
         <Empty className={"py-50"}>
