@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/hooks/useAuth";
+import { ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, Navigate, useParams } from "react-router";
 
@@ -114,10 +115,11 @@ const EditPostForm = () => {
               variant="link"
               className={"cursor-pointer"}
               onClick={() => {
-                navigate("/dashboard");
+                navigate(-1);
               }}
             >
-              Home
+              <ChevronLeft />
+              Go back
             </Button>
           </CardAction>
         </CardHeader>
