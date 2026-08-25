@@ -5,6 +5,7 @@ import { useParams, Navigate, useNavigate } from "react-router";
 import { cn } from "../lib/utils.js";
 import { useAuth } from "@/hooks/useAuth";
 import { ButtonGroup } from "@/components/ui/button-group.jsx";
+import moment from "moment";
 import LoadingSpinner from "@/components/LoadingSpinner.jsx";
 
 const Post = () => {
@@ -64,6 +65,7 @@ const Post = () => {
       </div>
     );
   }
+
   return (
     <div className="min-h-180 px-25 py-10">
       <div
@@ -75,7 +77,7 @@ const Post = () => {
           },
         )}
       >
-        <h1 className="text-4xl font-bold max-w-full text-wrap wrap-anywhere">
+        <h1 className="lg:text-4xl font-bold max-w-full text-wrap wrap-anywhere md:text-2xl sm:text-xl">
           {data?.title}
         </h1>
         <ButtonGroup>
@@ -88,7 +90,12 @@ const Post = () => {
             <ArrowLeft />
             Go to Dashboard
           </Button>
-          <Button className={"px-5 cursor-pointer"}>
+          <Button
+            className={"px-5 cursor-pointer"}
+            onClick={() => {
+              navigate(`/post/edit/${data?.id}`);
+            }}
+          >
             <Edit />
             Edit
           </Button>
@@ -96,7 +103,49 @@ const Post = () => {
       </div>
       <div
         className={cn(
-          "px-4 py-4 max-w-full text-wrap wrap-anywhere transition-all duration-500 ease-out delay-50",
+          " max-w-full text-wrap wrap-anywhere transition-all duration-500 ease-out flex flex-col gap-4",
+          {
+            "opacity-100 translate-y-0": loaded,
+            "opacity-0 translate-y-10": !loaded,
+          },
+        )}
+      >
+        <div className="flex gap-4 items-center">
+          <div className="flex gap-2">
+            <span className="text-muted-foreground text-sm">
+              Created: &nbsp;
+              {moment(data?.createdAt)
+                .fromNow()
+                .split(" ")
+                .map((item, index) =>
+                  index === 0
+                    ? item[0].toUpperCase() + item.slice(1, item.length)
+                    : item,
+                )
+                .join(" ")}
+              ,
+            </span>
+            <span className="text-muted-foreground text-sm">
+              Last updated: &nbsp;
+              {moment(data?.updatedAt)
+                .fromNow()
+                .split(" ")
+                .map((item, index) =>
+                  index === 0
+                    ? item[0].toUpperCase() + item.slice(1, item.length)
+                    : item,
+                )
+                .join(" ")}
+            </span>
+          </div>
+          <span className="text-muted-foreground text-sm">
+            {data.publishStatus ? "Published" : "Draft"}
+          </span>
+        </div>
+      </div>
+      <div
+        className={cn(
+          "px-4 delay-50 transition-all ease-out duration-500 py-4",
           {
             "opacity-100 translate-y-0": loaded,
             "opacity-0 translate-y-10": !loaded,
