@@ -52,6 +52,10 @@ const Dashboard = () => {
           logout();
           return;
         }
+        if (response.status === 403) {
+          navigate("/dashboard");
+          return;
+        }
         const result = await response.json();
         setData(result);
         setError(null);
@@ -63,7 +67,7 @@ const Dashboard = () => {
       }
     };
     fetchPosts();
-  }, [logout, user?.token, reload]);
+  }, [logout, user?.token, reload, navigate]);
 
   const handleDelete = async (postId) => {
     try {
@@ -80,6 +84,10 @@ const Dashboard = () => {
       );
       if (response.status === 401) {
         logout();
+        return;
+      }
+      if (response.status === 403) {
+        navigate("/dashboard");
         return;
       }
       const result = await response.json();
@@ -110,6 +118,10 @@ const Dashboard = () => {
         logout();
         return;
       }
+      if (response.status === 403) {
+        navigate("/dashboard");
+        return;
+      }
       const result = await response.json();
       setData(result.posts);
       setError(null);
@@ -136,6 +148,10 @@ const Dashboard = () => {
 
       if (response.status === 401) {
         logout();
+        return;
+      }
+      if (response.status === 403) {
+        navigate("/dashboard");
         return;
       }
       const result = await response.json();

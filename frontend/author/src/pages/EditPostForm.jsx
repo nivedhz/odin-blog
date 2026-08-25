@@ -41,6 +41,10 @@ const EditPostForm = () => {
           logout();
           return;
         }
+        if (response.status === 403) {
+          navigate("/dashboard");
+          return;
+        }
         const result = await response.json();
         setFormData({
           title: result.title,
@@ -51,7 +55,7 @@ const EditPostForm = () => {
       }
     };
     fetchPost();
-  }, [logout, postId, user?.token]);
+  }, [logout, postId, user?.token, navigate]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -92,6 +96,10 @@ const EditPostForm = () => {
     );
     if (response.status === 401) {
       logout();
+      return;
+    }
+    if (response.status === 403) {
+      navigate("/dashboard");
       return;
     }
 
