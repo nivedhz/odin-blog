@@ -14,10 +14,23 @@ const app = e();
 // Express configs
 app.use(e.json());
 
+const allowedOrigins = [
+  process.env.AUTHOR_CLIENT_URL,
+  process.env.READER_CLIENT_URL,
+];
+
 // CORS configs
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed"));
+      }
+    },
   }),
 );
 
