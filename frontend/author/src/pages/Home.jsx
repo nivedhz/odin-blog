@@ -25,7 +25,6 @@ const Home = () => {
   }
   return (
     <div className="relative">
-      <title>Blogo</title>
       <Particles
         className={"min-h-190 absolute inset-0"}
         particleColors={["#ffffff"]}
