@@ -15,6 +15,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
+import NoPost from "./NoPost";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const { postRef, draftRef, publishRef } = useScroll();
   const navigate = useNavigate();
   const [loaded, setLoaded] = useState(false);
+  const [permission, setPermission] = useState(true);
 
   useEffect(() => {
     if (data === null || loading || error) return;
@@ -53,12 +55,13 @@ const Dashboard = () => {
           return;
         }
         if (response.status === 403) {
-          navigate("/dashboard");
+          setPermission(false);
           return;
         }
         const result = await response.json();
         setData(result);
         setError(null);
+        setPermission(true);
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -87,12 +90,13 @@ const Dashboard = () => {
         return;
       }
       if (response.status === 403) {
-        navigate("/dashboard");
+        setPermission(false);
         return;
       }
       const result = await response.json();
       setData(result.posts);
       setError(null);
+      setPermission(true);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -119,12 +123,13 @@ const Dashboard = () => {
         return;
       }
       if (response.status === 403) {
-        navigate("/dashboard");
+        setPermission(false);
         return;
       }
       const result = await response.json();
       setData(result.posts);
       setError(null);
+      setPermission(true);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -151,12 +156,13 @@ const Dashboard = () => {
         return;
       }
       if (response.status === 403) {
-        navigate("/dashboard");
+        setPermission(false);
         return;
       }
       const result = await response.json();
       setData(result.posts);
       setError(null);
+      setPermission(true);
     } catch (err) {
       console.error(err);
       setError(err.message);
@@ -167,6 +173,9 @@ const Dashboard = () => {
 
   if (!user) {
     return <Navigate to="/" replace />;
+  }
+  if (!permission) {
+    return <NoPost />;
   }
   return (
     <>

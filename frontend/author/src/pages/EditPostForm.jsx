@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { ChevronLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, Navigate, useParams } from "react-router";
+import NoPost from "./NoPost";
 
 const EditPostForm = () => {
   const { user, logout } = useAuth();
@@ -24,6 +25,7 @@ const EditPostForm = () => {
     content: "",
   });
   const [error, setError] = useState("");
+  const [permission, setPermission] = useState(true);
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -42,7 +44,7 @@ const EditPostForm = () => {
           return;
         }
         if (response.status === 403) {
-          navigate("/dashboard");
+          setPermission(false);
           return;
         }
         const result = await response.json();
@@ -50,6 +52,7 @@ const EditPostForm = () => {
           title: result.title,
           content: result.content,
         });
+        setPermission(true);
       } catch (err) {
         setError(err.message);
       }
@@ -99,15 +102,19 @@ const EditPostForm = () => {
       return;
     }
     if (response.status === 403) {
-      navigate("/dashboard");
+      setPermission(false);
       return;
     }
 
     setError("");
+    setPermission(true);
     navigate(-1);
   };
   if (!user) {
     return <Navigate to="/auth/login" replace />;
+  }
+  if (!permission) {
+    return <NoPost />;
   }
 
   return (
