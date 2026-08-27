@@ -7,14 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  READER
+  AUTHOR
+}
+
 model User {
   id        String    @id @default(uuid())
   username  String    @unique
   email     String    @unique
-  password  String
   createdAt DateTime  @default(now()) @map("created_at")
-  posts     Post[]
+  role      Role      @default(READER)
+  password  String
   comments  Comment[]
+  posts     Post[]
 
   @@map("users")
 }
@@ -23,12 +29,12 @@ model Post {
   id            String    @id @default(uuid())
   title         String
   content       String
+  authorId      String
+  publishStatus Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now())
-  publishStatus Boolean   @default(false)
-  author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId      String
   comments      Comment[]
+  author        User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   @@map("posts")
 }
@@ -36,11 +42,11 @@ model Post {
 model Comment {
   id        String   @id @default(uuid())
   content   String
+  creatorId String
+  postId    String
   createdAt DateTime @default(now())
   creator   User     @relation(fields: [creatorId], references: [id], onDelete: Cascade)
-  creatorId String
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
 
   @@map("comments")
 }
