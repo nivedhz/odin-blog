@@ -7,11 +7,12 @@ import {
   postPublishPatchController,
   postsGetController,
   postUnpublishPatchController,
-} from "../controllers/post.controllers.js";
+} from "../controllers/author.controllers.js";
 import { ensureAuth } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+// Author side
 router.get("/", ensureAuth, postsGetController);
 router.get("/:postId", ensureAuth, postGetContrller);
 

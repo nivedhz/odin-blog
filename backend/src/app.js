@@ -7,7 +7,8 @@ import { passport } from "./config/passport.js";
 
 // Route imports
 import { router as authRouter } from "./routes/auth.routes.js";
-import { router as postRouter } from "./routes/post.routes.js";
+import { router as authorRouter } from "./routes/author.routes.js";
+import { router as readerRouter } from "./routes/reader.routes.js";
 
 const app = e();
 
@@ -38,7 +39,8 @@ app.use(
 app.use(passport.initialize());
 
 // Routes
-app.use("/auth", authRouter);
-app.use("/posts", postRouter);
+app.use("/author/auth", authRouter);
+app.use("/author/posts", authorRouter);
+app.use("/reader/posts", readerRouter);
 
 export default app;

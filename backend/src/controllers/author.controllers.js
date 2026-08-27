@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.js";
 export const postsGetController = async (req, res, next) => {
   const user = await prisma.user.findUnique({
     where: { id: req.user.id },
-    select: {
+    include: {
       posts: {
         include: {
           author: {
