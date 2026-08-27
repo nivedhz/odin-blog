@@ -41,7 +41,7 @@ const Dashboard = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/posts`,
+          `${import.meta.env.VITE_SERVER_URL}/author/posts`,
           {
             method: "GET",
             headers: {
@@ -76,7 +76,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/posts/delete/${postId}`,
+        `${import.meta.env.VITE_SERVER_URL}/author/posts/delete/${postId}`,
         {
           method: "DELETE",
           headers: {
@@ -108,7 +108,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/posts/publish/${postId}`,
+        `${import.meta.env.VITE_SERVER_URL}/author/posts/publish/${postId}`,
         {
           method: "PATCH",
           headers: {
@@ -141,7 +141,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}/posts/unpublish/${postId}`,
+        `${import.meta.env.VITE_SERVER_URL}/author/posts/unpublish/${postId}`,
         {
           method: "PATCH",
           headers: {

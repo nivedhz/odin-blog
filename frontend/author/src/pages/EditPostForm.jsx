@@ -30,7 +30,7 @@ const EditPostForm = () => {
     const fetchPost = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
+          `${import.meta.env.VITE_SERVER_URL}/author/posts/${postId}`,
           {
             method: "GET",
             headers: {
@@ -83,7 +83,7 @@ const EditPostForm = () => {
     const action = e.target.name;
 
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/posts/edit/${postId}`,
+      `${import.meta.env.VITE_SERVER_URL}/author/posts/edit/${postId}`,
       {
         method: "POST",
         headers: {

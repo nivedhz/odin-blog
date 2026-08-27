@@ -30,7 +30,7 @@ const Post = () => {
     const fetchPost = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/posts/${postId}`,
+          `${import.meta.env.VITE_SERVER_URL}/author/posts/${postId}`,
           {
             method: "GET",
             headers: {

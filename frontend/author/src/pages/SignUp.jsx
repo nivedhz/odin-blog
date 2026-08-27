@@ -65,7 +65,7 @@ const SignUp = () => {
     if (checkFormResponse(formData)) {
       try {
         const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-        const response = await fetch(`${SERVER_URL}/auth/sign-up`, {
+        const response = await fetch(`${SERVER_URL}/author/auth/sign-up`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
