@@ -33,7 +33,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-      const response = await fetch(`${SERVER_URL}/auth/login`, {
+      const response = await fetch(`${SERVER_URL}/reader/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

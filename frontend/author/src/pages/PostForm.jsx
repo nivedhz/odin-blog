@@ -50,7 +50,7 @@ const PostForm = () => {
     const action = e.target.name;
 
     const response = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/author/posts/new`,
+      `${import.meta.env.VITE_SERVER_URL}/author/post`,
       {
         method: "POST",
         headers: {
