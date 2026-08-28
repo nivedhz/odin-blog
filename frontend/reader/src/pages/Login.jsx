@@ -44,8 +44,8 @@ const Login = () => {
         }),
       });
       const data = await response.json();
-      if (data.errors) {
-        return setError(data.errors[0].msg);
+      if (data.errors || response.status === 401) {
+        return setError(data.errors ? data.errors[0].msg : data.message);
       }
       login({ token: data.token, username: data.username });
       setError(null);
