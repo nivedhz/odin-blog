@@ -49,20 +49,27 @@ export const loginPostController = async (req, res, next) => {
       username: true,
     },
   });
+
+  // No user in db
+  if (!user) {
+    return res.status(401).json({ success: false, message: "No user found" });
+  }
   const passwordStatus = await bcrypt.compare(password, user.password);
   const payload = { id: user.id };
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-  if (passwordStatus) {
-    res.status(201).json({
-      success: true,
-      message: "User logged in successfully",
-      token,
-      username: user.username,
-    });
-  } else {
-    res.status(401).json({
+
+  // Password not the same
+  if (!passwordStatus) {
+    return res.status(401).json({
       success: false,
       message: "Invalid email or password",
     });
   }
+
+  res.status(201).json({
+    success: true,
+    message: "User logged in successfully",
+    token,
+    username: user.username,
+  });
 };

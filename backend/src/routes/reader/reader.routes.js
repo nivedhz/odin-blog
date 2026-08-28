@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { postGetController } from "../../controllers/reader/reader.controllers.js";
-import { ensureAuth } from "../../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/", ensureAuth, postGetController);
+router.get("/post", postGetController);
 
 export { router };

@@ -13,6 +13,14 @@ export const postsGetController = async (req, res, next) => {
       },
     },
   });
+
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+      message: "User not found",
+    });
+  }
+
   res.status(200).json(user.posts);
 };
 
@@ -37,6 +45,10 @@ export const postDeleteController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
+
+  if (!post) {
+    return res.status(404).json({ success: false, message: "No post found" });
+  }
 
   if (req.user.id !== post.authorId) {
     return res.status(403).json({
@@ -63,6 +75,10 @@ export const postDeleteController = async (req, res, next) => {
     },
   });
 
+  if (!userPosts) {
+    return res.status(404).json({ success: false, message: "No posts found" });
+  }
+
   res.json({
     success: true,
     message: "Successfully deleted the post",
@@ -76,6 +92,11 @@ export const postPublishPatchController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
+
+  if (!post) {
+    return res.status(404).json({ success: false, message: "No post found" });
+  }
+
   if (post.authorId !== req.user.id) {
     return res.status(403).json({
       success: false,
@@ -103,6 +124,10 @@ export const postPublishPatchController = async (req, res, next) => {
     },
   });
 
+  if (!userPosts) {
+    return res.status(404).json({ success: false, message: "No posts found" });
+  }
+
   res.status(200).json({
     success: true,
     message: "Successfully published the post",
@@ -115,6 +140,11 @@ export const postUnpublishPatchController = async (req, res, next) => {
       id: req.params.postId,
     },
   });
+
+  if (!post) {
+    return res.status(404).json({ success: false, message: "No post found" });
+  }
+
   if (post.authorId !== req.user.id) {
     return res.status(403).json({
       success: false,
@@ -142,6 +172,10 @@ export const postUnpublishPatchController = async (req, res, next) => {
     },
   });
 
+  if (!userPosts) {
+    return res.status(404).json({ success: false, message: "No posts found" });
+  }
+
   res.status(200).json({
     success: true,
     message: "Successfully published the post",
@@ -154,6 +188,11 @@ export const postGetContrller = async (req, res, next) => {
       id: req.params.postId,
     },
   });
+
+  if (!post) {
+    return res.status(404).json({ success: false, message: "No post found" });
+  }
+
   if (post.authorId !== req.user.id) {
     return res.status(403).json({
       success: false,
