@@ -22,7 +22,7 @@ const Home = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SERVER_URL}/reader/posts`,
+          `${import.meta.env.VITE_SERVER_URL}/reader/post`,
           {
             method: "GET",
             headers: {
