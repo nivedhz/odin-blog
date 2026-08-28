@@ -6,9 +6,8 @@ import cors from "cors";
 import { passport } from "./config/passport.js";
 
 // Route imports
-import { router as authRouter } from "./routes/auth.routes.js";
-import { router as authorRouter } from "./routes/author.routes.js";
-import { router as readerRouter } from "./routes/reader.routes.js";
+import { router as authorRouter } from "./routes/author/author.routes.js";
+import { router as readerRouter } from "./routes/reader/reader.routes.js";
 
 const app = e();
 
@@ -39,8 +38,7 @@ app.use(
 app.use(passport.initialize());
 
 // Routes
-app.use("/author/auth", authRouter);
-app.use("/author/posts", authorRouter);
-app.use("/reader/posts", readerRouter);
+app.use("/author", authorRouter);
+app.use("/reader", readerRouter);
 
 export default app;

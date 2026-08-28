@@ -2,9 +2,9 @@ import { Router } from "express";
 import {
   loginPostController,
   signUpPostController,
-} from "../controllers/auth.controllers.js";
-import { signUpValidation } from "../validators/sign-up.validator.js";
-import { loginValidation } from "../validators/login.validator.js";
+} from "../../controllers/author/auth.controllers.js";
+import { signUpValidation } from "../../validators/sign-up.validator.js";
+import { loginValidation } from "../../validators/login.validator.js";
 
 const router = Router();
 
