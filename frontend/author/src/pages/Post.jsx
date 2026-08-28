@@ -44,7 +44,6 @@ const Post = () => {
           return;
         }
         const result = await response.json();
-        console.log(result);
         setData(result);
       } catch (err) {
         setError(err.message);
