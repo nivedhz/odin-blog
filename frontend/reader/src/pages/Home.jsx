@@ -1,4 +1,5 @@
 import { useAuth } from "../hooks/useAuth";
+import { cn } from "#lib/utils";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -53,7 +54,12 @@ const Home = () => {
     fetchPosts();
   }, [logout, user?.token]);
   return (
-    <div className="">
+    <div
+      className={cn("transition-all duration-500 ease-out", {
+        "opacity-100 translate-y-0": loaded,
+        "opacity-0 translate-y-10": !loaded,
+      })}
+    >
       {data?.map((item) => {
         return <p key={item.id}>{item.title}</p>;
       })}
