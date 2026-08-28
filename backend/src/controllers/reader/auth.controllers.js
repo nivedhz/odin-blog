@@ -19,7 +19,7 @@ export const signUpPostController = async (req, res, next) => {
       username,
       password: hashedPassword,
       email,
-      role: Role.AUTHOR,
+      role: Role.READER,
     },
   });
 

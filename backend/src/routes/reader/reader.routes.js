@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { postGetController } from "../../controllers/reader/reader.controllers.js";
+import { router as authRouter } from "./auth.routes.js";
+import { router as postRouter } from "./post.routes.js";
 
 const router = Router();
 
-router.get("/post", postGetController);
+router.use("/auth", authRouter);
+router.use("/post", postRouter);
 
 export { router };
