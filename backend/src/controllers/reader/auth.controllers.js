@@ -44,6 +44,7 @@ export const loginPostController = async (req, res, next) => {
   const user = await prisma.user.findUnique({
     where: {
       email,
+      role: Role.READER,
     },
     select: {
       password: true,
@@ -54,7 +55,9 @@ export const loginPostController = async (req, res, next) => {
 
   // No user in db
   if (!user) {
-    return res.status(401).json({ success: false, message: "No user found" });
+    return res
+      .status(401)
+      .json({ success: false, message: "User doesn't exist" });
   }
   const passwordStatus = await bcrypt.compare(password, user.password);
   const payload = { id: user.id };
