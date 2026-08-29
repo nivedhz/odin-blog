@@ -48,11 +48,9 @@ const Navbar = () => {
               ></DropdownMenuTrigger>
               <DropdownMenuContent className={"dark"}>
                 <DropdownMenuGroup>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuItem>Posts</DropdownMenuItem>
-                  <DropdownMenuItem>Publishes</DropdownMenuItem>
-                  <DropdownMenuItem>Drafts</DropdownMenuItem>
-                  <DropdownMenuItem>Comments</DropdownMenuItem>
+                  <DropdownMenuLabel>Posts</DropdownMenuLabel>
+                  <DropdownMenuItem>Popular</DropdownMenuItem>
+                  <DropdownMenuItem>Recent</DropdownMenuItem>
                   <DropdownMenuSeparator></DropdownMenuSeparator>
                   <AlertDialog>
                     <AlertDialogTrigger
