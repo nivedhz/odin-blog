@@ -3,8 +3,8 @@ import {
   loginPostController,
   signUpPostController,
 } from "../../controllers/reader/auth.controllers.js";
-import { signUpValidation } from "../../validators/sign-up.validator.js";
-import { loginValidation } from "../../validators/login.validator.js";
+import { signUpValidation } from "../../validators/reader/sign-up.validator.js";
+import { loginValidation } from "../../validators/reader/login.validator.js";
 
 const router = Router();
 
