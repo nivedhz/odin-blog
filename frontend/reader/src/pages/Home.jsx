@@ -50,17 +50,23 @@ const Home = () => {
         <h1 className="text-4xl font-bold">Popular Posts</h1>
       </div>
       <div
-        className={cn(
-          "transition-all duration-500 ease-out delay-50 px-4 flex flex-col gap-4",
-          {
-            "opacity-100 translate-y-0": loaded,
-            "opacity-0 translate-y-10": !loaded,
-          },
-        )}
-      >
-        {data?.map((item) => {
-          return <Post item={item} key={item.id} />;
+        className={cn("px-4 flex flex-col gap-4", {
+          "opacity-100 translate-y-0": loaded,
+          "opacity-0 translate-y-10": !loaded,
         })}
+      >
+        {data?.map((item, index) => (
+          <div
+            key={item.id}
+            style={{ transitionDelay: `${index * 50 + 50}ms` }}
+            className={cn(
+              "transition-all duration-500 ease-out",
+              loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+            )}
+          >
+            <Post item={item} />
+          </div>
+        ))}
       </div>
     </div>
   );
