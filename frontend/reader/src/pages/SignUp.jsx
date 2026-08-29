@@ -65,7 +65,7 @@ const SignUp = () => {
     if (checkFormResponse(formData)) {
       try {
         const SERVER_URL = import.meta.env.VITE_SERVER_URL;
-        const response = await fetch(`${SERVER_URL}/auth/sign-up`, {
+        const response = await fetch(`${SERVER_URL}/reader/auth/sign-up`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,8 +78,8 @@ const SignUp = () => {
           }),
         });
         const data = await response.json();
-        if (data.errors) {
-          return setError(data.errors[0].msg);
+        if (data.errors.length > 0 || !data.success) {
+          return setError(data.errors ? data.errors[0].msg : data.message);
         }
         login({ token: data.token, username: data.username });
         setError(null);
