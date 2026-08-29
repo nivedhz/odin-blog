@@ -14,7 +14,19 @@ export const signUpPostController = async (req, res, next) => {
   const { username, password, email } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  const user = await prisma.user.create({
+  const user = await prisma.user.findMany({
+    where: {
+      OR: [{ email }, { username }],
+    },
+  });
+  if (user.length > 0) {
+    return res.json({
+      success: false,
+      message: "User already exists",
+    });
+  }
+
+  const newUser = await prisma.user.create({
     data: {
       username,
       password: hashedPassword,
@@ -23,13 +35,13 @@ export const signUpPostController = async (req, res, next) => {
     },
   });
 
-  const payload = { id: user.id };
+  const payload = { id: newUser.id };
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
   res.status(201).json({
     success: true,
     message: "User registered successfully",
     token,
-    username: user.username,
+    username: newUser.username,
   });
 };
 
