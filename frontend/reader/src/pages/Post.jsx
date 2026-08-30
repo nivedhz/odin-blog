@@ -131,8 +131,6 @@ const Post = () => {
         return navigate("/auth/login");
       }
 
-      const result = await reponse.json();
-      console.log(result);
       setData((prev) => ({
         ...prev,
         comments: prev.comments.filter((item) => item.id !== commentId),
@@ -295,16 +293,27 @@ const Post = () => {
                                 "flex justify-between items-center min-w-full"
                               }
                             >
-                              <CardTitle className={"text-sm flex gap-2"}>
-                                <span>{item.creator.username} </span>
-                                <span>
-                                  {item.creator.username === user?.username
-                                    ? "(you)"
-                                    : ""}
+                              <CardTitle
+                                className={
+                                  "text-sm flex gap-1 items-center w-full min-w-xl"
+                                }
+                              >
+                                <span>{item.creator.username}</span>
+
+                                {item.creator.username === user?.username ? (
+                                  <span>(you)</span>
+                                ) : null}
+                                <span className="text-muted-foreground">
+                                  &bull;
+                                </span>
+                                <span className="text-muted-foreground">
+                                  {moment(item.createdAt).fromNow()}
                                 </span>
                               </CardTitle>
                             </CardHeader>
-                            <CardContent className={"text-muted-foreground"}>
+                            <CardContent
+                              className={"text-muted-foreground w-full"}
+                            >
                               {item.content}
                             </CardContent>
                           </div>
