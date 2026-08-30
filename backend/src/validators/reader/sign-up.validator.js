@@ -9,6 +9,16 @@ export const signUpValidation = [
     .withMessage("Username is required")
     .isLength({ min: 3 })
     .withMessage("Username must be atleast 3 characters long")
+    .custom(async (value) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          username: value,
+        },
+      });
+      if (user) {
+        throw new Error("Reader or Author already exists");
+      }
+    })
     .escape(),
   body("email")
     .trim()
@@ -22,7 +32,7 @@ export const signUpValidation = [
         },
       });
       if (user) {
-        throw new Error("User with thie email already exists");
+        throw new Error("User with this email already exists");
       }
     })
     .normalizeEmail(),
