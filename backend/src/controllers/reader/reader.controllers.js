@@ -81,3 +81,23 @@ export const commentPutController = async (req, res, next) => {
     comments,
   });
 };
+
+export const commentDeleteController = async (req, res, next) => {
+  if (!req.params.commentId) {
+    return res.status(404).json({
+      success: false,
+      message: "No comment id provided",
+    });
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: req.params.commentId,
+      creatorId: req.user.id,
+    },
+  });
+  res.json({
+    success: true,
+    message: "Deleted the comment successfully",
+  });
+};

@@ -114,6 +114,36 @@ const Post = () => {
     }
   };
 
+  const handleDelete = async (commentId) => {
+    try {
+      setLoading(true);
+      const reponse = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}/reader/post/comment/${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      if (reponse.status === 401) {
+        return navigate("/auth/login");
+      }
+
+      const result = await reponse.json();
+      console.log(result);
+      setData((prev) => ({
+        ...prev,
+        comments: prev.comments.filter((item) => item.id !== commentId),
+      }));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-180 flex justify-center items-center dark bg-background">
@@ -317,7 +347,12 @@ const Post = () => {
                                           <AlertDialogCancel>
                                             Cancel
                                           </AlertDialogCancel>
-                                          <AlertDialogAction variant="destructive">
+                                          <AlertDialogAction
+                                            variant="destructive"
+                                            onClick={() => {
+                                              handleDelete(item.id);
+                                            }}
+                                          >
                                             Delete
                                           </AlertDialogAction>
                                         </AlertDialogFooter>

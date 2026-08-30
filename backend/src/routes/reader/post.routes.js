@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  commentDeleteController,
   commentPutController,
   postGetController,
   postsGetController,
@@ -12,5 +13,6 @@ router.get("/", postsGetController);
 router.get("/:postId", postGetController);
 
 router.put("/comment", ensureAuth, commentPutController);
+router.delete("/comment/:commentId", ensureAuth, commentDeleteController);
 
 export { router };
