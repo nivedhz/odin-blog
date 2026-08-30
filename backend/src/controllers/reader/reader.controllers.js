@@ -12,6 +12,12 @@ export const postsGetController = async (req, res, next) => {
         },
       },
     },
+    orderBy: {
+      comments: {
+        _count: "desc",
+      },
+    },
+    take: 5,
   });
   if (!posts) {
     return res.status(404).json({
