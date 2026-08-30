@@ -24,7 +24,7 @@ export const signUpPostController = async (req, res, next) => {
   });
 
   const payload = { id: user.id };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
   res.status(201).json({
     success: true,
     message: "User registered successfully",
@@ -58,7 +58,7 @@ export const loginPostController = async (req, res, next) => {
   }
   const passwordStatus = await bcrypt.compare(password, user.password);
   const payload = { id: user.id };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
 
   // Password not the same
   if (!passwordStatus) {
