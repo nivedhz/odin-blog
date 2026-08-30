@@ -8,14 +8,16 @@ const override = {
 
 function LoadingSpinner({ loading }) {
   return (
-    <PuffLoader
-      color="#ffffff70"
-      loading={loading}
-      cssOverride={override}
-      size={50}
-      aria-label="Loading Spinner"
-      data-testid="loader"
-    />
+    <div className="min-h-180 flex justify-center items-center dark bg-background">
+      <PuffLoader
+        color="#ffffff70"
+        loading={loading}
+        cssOverride={override}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    </div>
   );
 }
 
