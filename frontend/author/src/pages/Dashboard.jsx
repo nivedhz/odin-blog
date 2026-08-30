@@ -1,21 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { Newspaper, Plus, RefreshCcw } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { cn } from "@/lib/utils";
 import PostCard from "@/components/PostCard";
 import { useScroll } from "@/hooks/useScroll";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import {
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@/components/ui/empty";
 import NoPost from "./NoPost";
+import ErrorElement from "#components/ErrorElement";
+import EmptyPostElement from "#components/EmptyPostElement";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);
@@ -181,74 +175,11 @@ const Dashboard = () => {
     <>
       <title>Blogo | Dashboard</title>
       {loading ? (
-        <div className="min-h-180 flex justify-center items-center dark bg-background">
-          <LoadingSpinner loading={data === null || loading} />
-        </div>
+        <LoadingSpinner loading={data === null || loading} />
       ) : error ? (
-        <div className="flex flex-col justify-center items-center min-h-180 gap-4">
-          <div className="flex flex-col items-center">
-            <h1 className={"text-4xl transition-all duration-500 ease-out"}>
-              Error occured
-            </h1>
-            <p className={"text-muted-foreground"}>{error}</p>
-          </div>
-          <Button
-            className={"cursor-pointer"}
-            onClick={() => {
-              setReload((prev) => prev + 1);
-            }}
-          >
-            <RefreshCcw />
-            Try Again?
-          </Button>
-        </div>
+        <ErrorElement error={error} setReload={setReload} />
       ) : data.length === 0 ? (
-        <Empty className={"py-50"}>
-          <EmptyHeader>
-            <EmptyMedia
-              variant="icon"
-              className={cn("transition-all duration-500 ease-out", {
-                "opacity-100 translate-y-0": loaded,
-                "opacity-0 translate-y-10": !loaded,
-              })}
-            >
-              <Newspaper />
-            </EmptyMedia>
-            <EmptyTitle
-              className={cn("transition-all duration-500 ease-out delay-50", {
-                "opacity-100 translate-y-0": loaded,
-                "opacity-0 translate-y-10": !loaded,
-              })}
-            >
-              No Posts Yet
-            </EmptyTitle>
-            <EmptyDescription
-              className={cn("transition-all duration-500 ease-out delay-100", {
-                "opacity-100 translate-y-0": loaded,
-                "opacity-0 translate-y-10": !loaded,
-              })}
-            >
-              You haven&apos;t created any posts yet. Get started by creating
-              your first post.
-            </EmptyDescription>
-          </EmptyHeader>
-          <EmptyContent className="flex-row justify-center gap-2">
-            <Button
-              className={cn(
-                "transition-all duration-500 ease-out delay-150 cursor-pointer",
-                {
-                  "opacity-100 translate-y-0": loaded,
-                  "opacity-0 translate-y-10": !loaded,
-                },
-              )}
-              onClick={() => {
-                navigate("/post/new");
-              }}
-            >
-              Create Post
-            </Button>
-          </EmptyContent>
-        </Empty>
+        <EmptyPostElement loaded={loaded} />
       ) : (
         <div className="dark px-25 py-10">
           <div className="flex flex-col gap-5">
