@@ -1,5 +1,5 @@
 import { Button } from "../components/ui/button";
-import { ArrowLeft, EllipsisVertical, MessageCircle, Send } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { cn } from "../lib/utils.js";
@@ -7,34 +7,8 @@ import moment from "moment";
 import LoadingSpinner from "../components/LoadingSpinner.jsx";
 import { useAuth } from "../hooks/useAuth.jsx";
 import { Input } from "#components/ui/input";
-import {
-  Empty,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "#components/ui/empty";
-import { Card, CardContent, CardHeader, CardTitle } from "#components/ui/card";
-import { Avatar, AvatarFallback } from "#components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "#components/ui/dropdown-menu";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "#components/ui/alert-dialog";
+import EmptyComment from "#components/EmptyComment";
+import Comment from "#components/Comment";
 
 const Post = () => {
   const { user, logout } = useAuth();
@@ -270,119 +244,11 @@ const Post = () => {
             </form>
             <div className="">
               {data?.comments.length === 0 ? (
-                <Empty className={"gap-2"}>
-                  <EmptyHeader>
-                    <EmptyMedia variant="icon">
-                      <MessageCircle />
-                    </EmptyMedia>
-                  </EmptyHeader>
-                  <EmptyTitle>No comments yet</EmptyTitle>
-                  <EmptyDescription>
-                    Be the first one to leave a comment
-                  </EmptyDescription>
-                </Empty>
+                <EmptyComment />
               ) : (
                 <div className="py-4 flex flex-col gap-3">
                   {data?.comments.map((item) => {
-                    return (
-                      <Card
-                        key={item.id}
-                        className={"flex flex-row items-center gap-0 px-4"}
-                      >
-                        <Avatar>
-                          <AvatarFallback>
-                            {item.creator.username[0]}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-full flex justify-between items-center px-4">
-                          <div className="flex flex-col">
-                            <CardHeader
-                              className={
-                                "flex justify-between items-center min-w-full"
-                              }
-                            >
-                              <CardTitle
-                                className={
-                                  "text-sm flex gap-1 items-center w-full min-w-xl"
-                                }
-                              >
-                                <span>{item.creator.username}</span>
-
-                                {item.creator.username === user?.username ? (
-                                  <span>(you)</span>
-                                ) : null}
-                                <span className="text-muted-foreground">
-                                  &bull;
-                                </span>
-                                <span className="text-muted-foreground">
-                                  {moment(item.createdAt).fromNow()}
-                                </span>
-                              </CardTitle>
-                            </CardHeader>
-                            <CardContent
-                              className={"text-muted-foreground w-full"}
-                            >
-                              {item.content}
-                            </CardContent>
-                          </div>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger
-                              render={
-                                <Button variant="ghost" size="icon">
-                                  <EllipsisVertical />
-                                </Button>
-                              }
-                            />
-                            <DropdownMenuContent>
-                              <DropdownMenuGroup>
-                                <DropdownMenuLabel>Comment</DropdownMenuLabel>
-                                <DropdownMenuItem>Report</DropdownMenuItem>
-                                {item.creator.username === user?.username && (
-                                  <div className="">
-                                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                                    <AlertDialog>
-                                      <AlertDialogTrigger
-                                        render={
-                                          <Button
-                                            variant="destructive"
-                                            className="min-w-full justify-start"
-                                          >
-                                            Delete
-                                          </Button>
-                                        }
-                                      />
-                                      <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                          <AlertDialogTitle>
-                                            Are you sure to delete?
-                                          </AlertDialogTitle>
-                                          <AlertDialogDescription>
-                                            This action cannot be undone
-                                          </AlertDialogDescription>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                          <AlertDialogCancel>
-                                            Cancel
-                                          </AlertDialogCancel>
-                                          <AlertDialogAction
-                                            variant="destructive"
-                                            onClick={() => {
-                                              handleDelete(item.id);
-                                            }}
-                                          >
-                                            Delete
-                                          </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                      </AlertDialogContent>
-                                    </AlertDialog>
-                                  </div>
-                                )}
-                              </DropdownMenuGroup>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </div>
-                      </Card>
-                    );
+                    return <Comment item={item} handleDelete={handleDelete} />;
                   })}
                 </div>
               )}
