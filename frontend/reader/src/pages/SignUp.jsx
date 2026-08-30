@@ -40,7 +40,7 @@ const SignUp = () => {
       setError("Please enter a valid email");
       return false;
     }
-    if (formData.username.length < 3) {
+    if (formData.username.length <= 3) {
       setError("Username should be more than 3 characters");
       return false;
     }
@@ -78,7 +78,7 @@ const SignUp = () => {
           }),
         });
         const data = await response.json();
-        if (data.errors.length > 0 || !data.success) {
+        if (data.errors?.length > 0 || !data.success) {
           return setError(data.errors ? data.errors[0].msg : data.message);
         }
         login({ token: data.token, username: data.username });
