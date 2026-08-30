@@ -249,15 +249,22 @@ const Post = () => {
                   setComment(e.target.value);
                 }}
                 placeholder="Add a comment"
+                required
               />
               <div className="">
                 <Button
                   variant="outline"
                   size="icon"
-                  className="cursor-pointer"
-                  type="submit"
+                  className={cn("cursor-pointer", {
+                    "cursor-not-allowed": !comment.trim(),
+                  })}
+                  type={comment.trim() ? "submit" : "button"}
                 >
-                  <Send />
+                  <Send
+                    className={cn("", {
+                      "text-muted-foreground": !comment.trim(),
+                    })}
+                  />
                 </Button>
               </div>
             </form>
