@@ -187,6 +187,13 @@ export const postGetContrller = async (req, res, next) => {
     where: {
       id: req.params.postId,
     },
+    include: {
+      comments: {
+        include: {
+          creator: true,
+        },
+      },
+    },
   });
 
   if (!post) {
@@ -219,5 +226,23 @@ export const postEditPostController = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Successfully edited the post",
+  });
+};
+export const commentDeleteController = async (req, res, next) => {
+  if (!req.params.commentId) {
+    return res.status(404).json({
+      success: false,
+      message: "No comment id provided",
+    });
+  }
+
+  await prisma.comment.delete({
+    where: {
+      id: req.params.commentId,
+    },
+  });
+  res.json({
+    success: true,
+    message: "Deleted the comment successfully",
   });
 };

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  commentDeleteController,
   newPostPostController,
   postDeleteController,
   postEditPostController,
@@ -28,5 +29,7 @@ router.patch("/:postId", ensureAuth, postEditPostController);
 // Publish and unpublish
 router.patch("/:postId/publish", ensureAuth, postPublishPatchController);
 router.patch("/:postId/unpublish", ensureAuth, postUnpublishPatchController);
+
+router.delete("/comment/:commentId", ensureAuth, commentDeleteController);
 
 export { router };
