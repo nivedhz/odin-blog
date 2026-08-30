@@ -1,6 +1,12 @@
 import { prisma } from "../../lib/prisma.js";
 
 export const postsGetController = async (req, res, next) => {
+  const { sort } = req.query;
+  const orderBy =
+    sort === "recent"
+      ? { updatedAt: "desc" }
+      : { comments: { _count: "desc" } };
+
   const posts = await prisma.post.findMany({
     where: {
       publishStatus: true,
@@ -12,12 +18,8 @@ export const postsGetController = async (req, res, next) => {
         },
       },
     },
-    orderBy: {
-      comments: {
-        _count: "desc",
-      },
-    },
-    take: 5,
+    orderBy,
+    take: sort === "recent" ? undefined : 5,
   });
   if (!posts) {
     return res.status(404).json({
