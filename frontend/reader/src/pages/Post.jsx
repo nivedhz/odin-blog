@@ -58,6 +58,7 @@ const Post = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
           `${import.meta.env.VITE_SERVER_URL}/reader/post/${postId}`,
           {

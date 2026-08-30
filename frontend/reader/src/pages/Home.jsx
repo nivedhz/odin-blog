@@ -1,7 +1,7 @@
-import { useAuth } from "../hooks/useAuth";
 import { cn } from "#lib/utils";
 import { useEffect, useState } from "react";
 import Post from "#components/Post";
+import LoadingSpinner from "#components/LoadingSpinner";
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -39,6 +39,14 @@ const Home = () => {
     };
     fetchPosts();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-180 flex justify-center items-center dark bg-background">
+        <LoadingSpinner loading={loading} />
+      </div>
+    );
+  }
   return (
     <div className="px-25 py-10 flex flex-col gap-4">
       <div
