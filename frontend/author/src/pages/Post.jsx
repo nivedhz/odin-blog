@@ -201,7 +201,13 @@ const Post = () => {
               ) : (
                 <div className="py-4 flex flex-col gap-3">
                   {data?.comments.map((item) => {
-                    return <Comment item={item} handleDelete={handleDelete} />;
+                    return (
+                      <Comment
+                        item={item}
+                        handleDelete={handleDelete}
+                        key={item.key}
+                      />
+                    );
                   })}
                 </div>
               )}
