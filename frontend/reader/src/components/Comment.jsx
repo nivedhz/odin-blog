@@ -27,7 +27,7 @@ import {
 const Comment = ({ item, handleDelete }) => {
   const { user } = useAuth();
   return (
-    <Card key={item.id} className={"flex flex-row items-center gap-0 px-4"}>
+    <Card className={"flex flex-row items-center gap-0 px-4"}>
       <Avatar>
         <AvatarFallback>{item.creator.username[0]}</AvatarFallback>
       </Avatar>
