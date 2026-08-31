@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node --watch --env-file=.env src/server.js"
+    "dev": "node --watch --env-file=.env src/server.js",
+    "start": "node src/server.js",
+    "build": "prisma generate"
   },
   "repository": {
     "type": "git",
