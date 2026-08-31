@@ -79,7 +79,11 @@ export const commentPutController = async (req, res, next) => {
       postId: req.body.post,
     },
     include: {
-      creator: true,
+      creator: {
+        select: {
+          username: true,
+        },
+      },
     },
   });
 
