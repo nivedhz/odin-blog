@@ -2,6 +2,7 @@ import { cn } from "#lib/utils";
 import { useEffect, useState } from "react";
 import Post from "#components/Post";
 import LoadingSpinner from "#components/LoadingSpinner";
+import { useScroll } from "../hooks/useScroll";
 
 const Home = () => {
   const [data, setData] = useState(null);
@@ -9,6 +10,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const { popularRef, recentRef } = useScroll();
 
   useEffect(() => {
     if (data === null || loading || error) return;
@@ -79,7 +81,9 @@ const Home = () => {
             "opacity-0 translate-y-10": !loaded,
           })}
         >
-          <h1 className="text-4xl font-bold">Popular Posts</h1>
+          <h1 className="text-4xl font-bold" ref={popularRef}>
+            Popular Posts
+          </h1>
         </div>
         <div
           className={cn("px-4 flex flex-col gap-4", {
@@ -110,7 +114,9 @@ const Home = () => {
             "opacity-0 translate-y-10": !loaded,
           })}
         >
-          <h1 className="text-4xl font-bold">Recent Posts</h1>
+          <h1 className="text-4xl font-bold" ref={recentRef}>
+            Recent Posts
+          </h1>
         </div>
         <div
           className={cn("px-4 flex flex-col gap-4", {

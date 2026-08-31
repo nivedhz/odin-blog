@@ -22,9 +22,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useScroll } from "../hooks/useScroll";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const { popularRef, recentRef, scrollTo } = useScroll();
 
   return (
     <div className="">
@@ -49,8 +51,12 @@ const Navbar = () => {
               <DropdownMenuContent className={"dark"}>
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>Posts</DropdownMenuLabel>
-                  <DropdownMenuItem>Popular</DropdownMenuItem>
-                  <DropdownMenuItem>Recent</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollTo(popularRef)}>
+                    Popular
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => scrollTo(recentRef)}>
+                    Recent
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator></DropdownMenuSeparator>
                   <AlertDialog>
                     <AlertDialogTrigger
