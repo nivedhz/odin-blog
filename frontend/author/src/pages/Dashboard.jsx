@@ -249,7 +249,7 @@ const Dashboard = () => {
                 {data.filter((item) => item.publishStatus).length === 0 ? (
                   <h1
                     className={cn(
-                      "text-2xl font-semibold text-center text-muted-foreground/60 transition-all duration-500 ease-out delay-300",
+                      "text-2xl font-semibold text-center text-muted-foreground/60 transition-all duration-500 ease-out delay-200",
                       {
                         "opacity-100 translate-y-0": loaded,
                         "opacity-0 translate-y-10": !loaded,
@@ -319,7 +319,7 @@ const Dashboard = () => {
                 ) : (
                   <div
                     className={cn(
-                      "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-200",
+                      "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-300",
                       {
                         "opacity-100 translate-y-0": loaded,
                         "opacity-0 translate-y-10": !loaded,
