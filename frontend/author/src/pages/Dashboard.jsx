@@ -245,28 +245,44 @@ const Dashboard = () => {
                   Publishes
                 </h1>
               </div>
-              <div
-                className={cn(
-                  "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-200",
-                  {
-                    "opacity-100 translate-y-0": loaded,
-                    "opacity-0 translate-y-10": !loaded,
-                  },
+              <div>
+                {data.filter((item) => item.publishStatus).length === 0 ? (
+                  <h1
+                    className={cn(
+                      "text-2xl font-semibold text-center text-muted-foreground/60 transition-all duration-500 ease-out delay-300",
+                      {
+                        "opacity-100 translate-y-0": loaded,
+                        "opacity-0 translate-y-10": !loaded,
+                      },
+                    )}
+                  >
+                    No Publishes
+                  </h1>
+                ) : (
+                  <div
+                    className={cn(
+                      "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-200",
+                      {
+                        "opacity-100 translate-y-0": loaded,
+                        "opacity-0 translate-y-10": !loaded,
+                      },
+                    )}
+                  >
+                    {data
+                      .filter((item) => item.publishStatus)
+                      .map((item) => {
+                        return (
+                          <PostCard
+                            item={item}
+                            handleDelete={handleDelete}
+                            handlePublish={handlePublish}
+                            handleUnpublish={handleUnpublish}
+                            key={item.id}
+                          />
+                        );
+                      })}
+                  </div>
                 )}
-              >
-                {data
-                  .filter((item) => item.publishStatus)
-                  .map((item) => {
-                    return (
-                      <PostCard
-                        item={item}
-                        handleDelete={handleDelete}
-                        handlePublish={handlePublish}
-                        handleUnpublish={handleUnpublish}
-                        key={item.id}
-                      />
-                    );
-                  })}
               </div>
             </div>
             <div className="">
@@ -287,28 +303,44 @@ const Dashboard = () => {
                   Drafts
                 </h1>
               </div>
-              <div
-                className={cn(
-                  "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-300",
-                  {
-                    "opacity-100 translate-y-0": loaded,
-                    "opacity-0 translate-y-10": !loaded,
-                  },
+              <div>
+                {data.filter((item) => !item.publishStatus).length === 0 ? (
+                  <h1
+                    className={cn(
+                      "text-2xl font-semibold text-center text-muted-foreground/60 transition-all duration-500 ease-out delay-300",
+                      {
+                        "opacity-100 translate-y-0": loaded,
+                        "opacity-0 translate-y-10": !loaded,
+                      },
+                    )}
+                  >
+                    No Drafts
+                  </h1>
+                ) : (
+                  <div
+                    className={cn(
+                      "p-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 transition-all duration-500 ease-out delay-200",
+                      {
+                        "opacity-100 translate-y-0": loaded,
+                        "opacity-0 translate-y-10": !loaded,
+                      },
+                    )}
+                  >
+                    {data
+                      .filter((item) => !item.publishStatus)
+                      .map((item) => {
+                        return (
+                          <PostCard
+                            item={item}
+                            handleDelete={handleDelete}
+                            handlePublish={handlePublish}
+                            handleUnpublish={handleUnpublish}
+                            key={item.id}
+                          />
+                        );
+                      })}
+                  </div>
                 )}
-              >
-                {data
-                  .filter((item) => !item.publishStatus)
-                  .map((item) => {
-                    return (
-                      <PostCard
-                        item={item}
-                        handleDelete={handleDelete}
-                        handlePublish={handlePublish}
-                        handleUnpublish={handleUnpublish}
-                        key={item.id}
-                      />
-                    );
-                  })}
               </div>
             </div>
           </div>
