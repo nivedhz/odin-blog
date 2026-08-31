@@ -32,7 +32,7 @@ export const signUpValidation = [
         },
       });
       if (user) {
-        throw new Error("User with this email already exists");
+        throw new Error("Reader or Author already exists");
       }
     })
     .normalizeEmail(),
