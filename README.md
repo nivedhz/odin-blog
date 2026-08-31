@@ -6,8 +6,8 @@ A full-stack blog platform with two dedicated clients — one for **authors** to
 
 Blogo splits the blogging experience into two apps that talk to a single backend:
 
-- **Author app** — sign up/login as a writer, create, edit, publish/unpublish, and delete posts, and moderate comments on your own posts.
-- **Reader app** — browse published posts (sorted by *popular* or *recent*), sign up/login as a reader, and leave or delete comments.
+- **[Author app](https://odin-blog-author-three.vercel.app/)** — sign up/login as a writer, create, edit, publish/unpublish, and delete posts, and moderate comments on your own posts.
+- **[Reader app](https://odin-blog-reader.vercel.app/)** — browse published posts (sorted by *popular* or *recent*), sign up/login as a reader, and leave or delete comments.
 
 Both apps share the same backend and database, with roles (`AUTHOR` / `READER`) enforced via JWT.
 
